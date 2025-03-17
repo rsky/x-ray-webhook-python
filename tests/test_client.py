@@ -21,7 +21,7 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from x_ray_webhook import XRayWebhook, AsyncXRayWebhook, APIResponseValidationError
+from x_ray_webhook import XRayReceiver, AsyncXRayReceiver, APIResponseValidationError
 from x_ray_webhook._types import Omit
 from x_ray_webhook._utils import maybe_transform
 from x_ray_webhook._models import BaseModel, FinalRequestOptions
@@ -38,7 +38,8 @@ from x_ray_webhook.types.api_data_create_params import APIDataCreateParams
 from .utils import update_env
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
-api_key = "My API Key"
+client_id = "My Client ID"
+client_secret = "My Client Secret"
 
 
 def _get_params(client: BaseClient[Any, Any]) -> dict[str, str]:
@@ -51,7 +52,7 @@ def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
 
-def _get_open_connections(client: XRayWebhook | AsyncXRayWebhook) -> int:
+def _get_open_connections(client: XRayReceiver | AsyncXRayReceiver) -> int:
     transport = client._client._transport
     assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
 
@@ -59,8 +60,10 @@ def _get_open_connections(client: XRayWebhook | AsyncXRayWebhook) -> int:
     return len(pool._requests)
 
 
-class TestXRayWebhook:
-    client = XRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestXRayReceiver:
+    client = XRayReceiver(
+        base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=True
+    )
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -86,9 +89,13 @@ class TestXRayWebhook:
         copied = self.client.copy()
         assert id(copied) != id(self.client)
 
-        copied = self.client.copy(api_key="another My API Key")
-        assert copied.api_key == "another My API Key"
-        assert self.client.api_key == "My API Key"
+        copied = self.client.copy(client_id="another My Client ID")
+        assert copied.client_id == "another My Client ID"
+        assert self.client.client_id == "My Client ID"
+
+        copied = self.client.copy(client_secret="another My Client Secret")
+        assert copied.client_secret == "another My Client Secret"
+        assert self.client.client_secret == "My Client Secret"
 
     def test_copy_default_options(self) -> None:
         # options that have a default are overridden correctly
@@ -107,8 +114,12 @@ class TestXRayWebhook:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = XRayWebhook(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
+        client = XRayReceiver(
+            base_url=base_url,
+            client_id=client_id,
+            client_secret=client_secret,
+            _strict_response_validation=True,
+            default_headers={"X-Foo": "bar"},
         )
         assert client.default_headers["X-Foo"] == "bar"
 
@@ -141,8 +152,12 @@ class TestXRayWebhook:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = XRayWebhook(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
+        client = XRayReceiver(
+            base_url=base_url,
+            client_id=client_id,
+            client_secret=client_secret,
+            _strict_response_validation=True,
+            default_query={"foo": "bar"},
         )
         assert _get_params(client)["foo"] == "bar"
 
@@ -266,8 +281,12 @@ class TestXRayWebhook:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = XRayWebhook(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
+        client = XRayReceiver(
+            base_url=base_url,
+            client_id=client_id,
+            client_secret=client_secret,
+            _strict_response_validation=True,
+            timeout=httpx.Timeout(0),
         )
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -277,8 +296,12 @@ class TestXRayWebhook:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = XRayWebhook(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
+            client = XRayReceiver(
+                base_url=base_url,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+                http_client=http_client,
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -287,8 +310,12 @@ class TestXRayWebhook:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = XRayWebhook(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
+            client = XRayReceiver(
+                base_url=base_url,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+                http_client=http_client,
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -297,8 +324,12 @@ class TestXRayWebhook:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = XRayWebhook(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
+            client = XRayReceiver(
+                base_url=base_url,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+                http_client=http_client,
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -308,24 +339,30 @@ class TestXRayWebhook:
     async def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             async with httpx.AsyncClient() as http_client:
-                XRayWebhook(
+                XRayReceiver(
                     base_url=base_url,
-                    api_key=api_key,
+                    client_id=client_id,
+                    client_secret=client_secret,
                     _strict_response_validation=True,
                     http_client=cast(Any, http_client),
                 )
 
     def test_default_headers_option(self) -> None:
-        client = XRayWebhook(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
+        client = XRayReceiver(
+            base_url=base_url,
+            client_id=client_id,
+            client_secret=client_secret,
+            _strict_response_validation=True,
+            default_headers={"X-Foo": "bar"},
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = XRayWebhook(
+        client2 = XRayReceiver(
             base_url=base_url,
-            api_key=api_key,
+            client_id=client_id,
+            client_secret=client_secret,
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
@@ -336,28 +373,13 @@ class TestXRayWebhook:
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
-    def test_validate_headers(self) -> None:
-        client = XRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == f"Bearer {api_key}"
-
-        with update_env(**{"X_RAY_WEBHOOK_API_KEY": Omit()}):
-            client2 = XRayWebhook(base_url=base_url, api_key=None, _strict_response_validation=True)
-
-        with pytest.raises(
-            TypeError,
-            match="Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted",
-        ):
-            client2._build_request(FinalRequestOptions(method="get", url="/foo"))
-
-        request2 = client2._build_request(
-            FinalRequestOptions(method="get", url="/foo", headers={"Authorization": Omit()})
-        )
-        assert request2.headers.get("Authorization") is None
-
     def test_default_query_option(self) -> None:
-        client = XRayWebhook(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
+        client = XRayReceiver(
+            base_url=base_url,
+            client_id=client_id,
+            client_secret=client_secret,
+            _strict_response_validation=True,
+            default_query={"query_param": "bar"},
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         url = httpx.URL(request.url)
@@ -470,7 +492,7 @@ class TestXRayWebhook:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, client: XRayWebhook) -> None:
+    def test_multipart_repeating_array(self, client: XRayReceiver) -> None:
         request = client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -557,8 +579,11 @@ class TestXRayWebhook:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = XRayWebhook(
-            base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
+        client = XRayReceiver(
+            base_url="https://example.com/from_init",
+            client_id=client_id,
+            client_secret=client_secret,
+            _strict_response_validation=True,
         )
         assert client.base_url == "https://example.com/from_init/"
 
@@ -567,26 +592,30 @@ class TestXRayWebhook:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(X_RAY_WEBHOOK_BASE_URL="http://localhost:5000/from/env"):
-            client = XRayWebhook(api_key=api_key, _strict_response_validation=True)
+        with update_env(X_RAY_RECEIVER_BASE_URL="http://localhost:5000/from/env"):
+            client = XRayReceiver(client_id=client_id, client_secret=client_secret, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            XRayWebhook(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            XRayWebhook(
+            XRayReceiver(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+            ),
+            XRayReceiver(
+                base_url="http://localhost:5000/custom/path/",
+                client_id=client_id,
+                client_secret=client_secret,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: XRayWebhook) -> None:
+    def test_base_url_trailing_slash(self, client: XRayReceiver) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -599,19 +628,23 @@ class TestXRayWebhook:
     @pytest.mark.parametrize(
         "client",
         [
-            XRayWebhook(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            XRayWebhook(
+            XRayReceiver(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+            ),
+            XRayReceiver(
+                base_url="http://localhost:5000/custom/path/",
+                client_id=client_id,
+                client_secret=client_secret,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: XRayWebhook) -> None:
+    def test_base_url_no_trailing_slash(self, client: XRayReceiver) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -624,19 +657,23 @@ class TestXRayWebhook:
     @pytest.mark.parametrize(
         "client",
         [
-            XRayWebhook(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            XRayWebhook(
+            XRayReceiver(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+            ),
+            XRayReceiver(
+                base_url="http://localhost:5000/custom/path/",
+                client_id=client_id,
+                client_secret=client_secret,
                 _strict_response_validation=True,
                 http_client=httpx.Client(),
             ),
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: XRayWebhook) -> None:
+    def test_absolute_request_url(self, client: XRayReceiver) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -647,7 +684,9 @@ class TestXRayWebhook:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = XRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = XRayReceiver(
+            base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=True
+        )
         assert not client.is_closed()
 
         copied = client.copy()
@@ -658,7 +697,9 @@ class TestXRayWebhook:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = XRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = XRayReceiver(
+            base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=True
+        )
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -679,8 +720,12 @@ class TestXRayWebhook:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            XRayWebhook(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
+            XRayReceiver(
+                base_url=base_url,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+                max_retries=cast(Any, None),
             )
 
     @pytest.mark.respx(base_url=base_url)
@@ -690,12 +735,16 @@ class TestXRayWebhook:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = XRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = XRayReceiver(
+            base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=True
+        )
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = XRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = XRayReceiver(
+            base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=False
+        )
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -723,7 +772,9 @@ class TestXRayWebhook:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = XRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = XRayReceiver(
+            base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=True
+        )
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
@@ -742,30 +793,27 @@ class TestXRayWebhook:
                     object,
                     maybe_transform(
                         dict(
-                            member_id=NaN,
+                            member_id=123456789,
                             request={
-                                "_0": "R",
-                                "_1": "E",
-                                "_2": "P",
-                                "_3": "L",
-                                "_4": "A",
-                                "_5": "C",
-                                "_6": "E",
-                                "_7": "_",
-                                "_8": "M",
-                                "_9": "E",
+                                "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
+                                "method": "POST",
+                                "parameters": {
+                                    "key1": "value1",
+                                    "key2": "value2",
+                                },
                             },
                             response={
-                                "_0": "R",
-                                "_1": "E",
-                                "_2": "P",
-                                "_3": "L",
-                                "_4": "A",
-                                "_5": "C",
-                                "_6": "E",
-                                "_7": "_",
-                                "_8": "M",
-                                "_9": "E",
+                                "timestamp": 1740262942,
+                                "result": 1,
+                                "message": "成功",
+                                "data": {
+                                    "member_id": "123456789",
+                                    "nickname": "foo,",
+                                },
+                                "log": {
+                                    "bucket": "x-ray-log",
+                                    "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+                                },
                             },
                         ),
                         APIDataCreateParams,
@@ -789,30 +837,27 @@ class TestXRayWebhook:
                     object,
                     maybe_transform(
                         dict(
-                            member_id=NaN,
+                            member_id=123456789,
                             request={
-                                "_0": "R",
-                                "_1": "E",
-                                "_2": "P",
-                                "_3": "L",
-                                "_4": "A",
-                                "_5": "C",
-                                "_6": "E",
-                                "_7": "_",
-                                "_8": "M",
-                                "_9": "E",
+                                "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
+                                "method": "POST",
+                                "parameters": {
+                                    "key1": "value1",
+                                    "key2": "value2",
+                                },
                             },
                             response={
-                                "_0": "R",
-                                "_1": "E",
-                                "_2": "P",
-                                "_3": "L",
-                                "_4": "A",
-                                "_5": "C",
-                                "_6": "E",
-                                "_7": "_",
-                                "_8": "M",
-                                "_9": "E",
+                                "timestamp": 1740262942,
+                                "result": 1,
+                                "message": "成功",
+                                "data": {
+                                    "member_id": "123456789",
+                                    "nickname": "foo,",
+                                },
+                                "log": {
+                                    "bucket": "x-ray-log",
+                                    "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+                                },
                             },
                         ),
                         APIDataCreateParams,
@@ -830,7 +875,7 @@ class TestXRayWebhook:
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
         self,
-        client: XRayWebhook,
+        client: XRayReceiver,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -876,7 +921,7 @@ class TestXRayWebhook:
     @mock.patch("x_ray_webhook._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
-        self, client: XRayWebhook, failures_before_success: int, respx_mock: MockRouter
+        self, client: XRayReceiver, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -917,7 +962,7 @@ class TestXRayWebhook:
     @mock.patch("x_ray_webhook._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
-        self, client: XRayWebhook, failures_before_success: int, respx_mock: MockRouter
+        self, client: XRayReceiver, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -955,8 +1000,10 @@ class TestXRayWebhook:
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
 
-class TestAsyncXRayWebhook:
-    client = AsyncXRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestAsyncXRayReceiver:
+    client = AsyncXRayReceiver(
+        base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=True
+    )
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -984,9 +1031,13 @@ class TestAsyncXRayWebhook:
         copied = self.client.copy()
         assert id(copied) != id(self.client)
 
-        copied = self.client.copy(api_key="another My API Key")
-        assert copied.api_key == "another My API Key"
-        assert self.client.api_key == "My API Key"
+        copied = self.client.copy(client_id="another My Client ID")
+        assert copied.client_id == "another My Client ID"
+        assert self.client.client_id == "My Client ID"
+
+        copied = self.client.copy(client_secret="another My Client Secret")
+        assert copied.client_secret == "another My Client Secret"
+        assert self.client.client_secret == "My Client Secret"
 
     def test_copy_default_options(self) -> None:
         # options that have a default are overridden correctly
@@ -1005,8 +1056,12 @@ class TestAsyncXRayWebhook:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = AsyncXRayWebhook(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
+        client = AsyncXRayReceiver(
+            base_url=base_url,
+            client_id=client_id,
+            client_secret=client_secret,
+            _strict_response_validation=True,
+            default_headers={"X-Foo": "bar"},
         )
         assert client.default_headers["X-Foo"] == "bar"
 
@@ -1039,8 +1094,12 @@ class TestAsyncXRayWebhook:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = AsyncXRayWebhook(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
+        client = AsyncXRayReceiver(
+            base_url=base_url,
+            client_id=client_id,
+            client_secret=client_secret,
+            _strict_response_validation=True,
+            default_query={"foo": "bar"},
         )
         assert _get_params(client)["foo"] == "bar"
 
@@ -1164,8 +1223,12 @@ class TestAsyncXRayWebhook:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncXRayWebhook(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
+        client = AsyncXRayReceiver(
+            base_url=base_url,
+            client_id=client_id,
+            client_secret=client_secret,
+            _strict_response_validation=True,
+            timeout=httpx.Timeout(0),
         )
 
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1175,8 +1238,12 @@ class TestAsyncXRayWebhook:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncXRayWebhook(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
+            client = AsyncXRayReceiver(
+                base_url=base_url,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+                http_client=http_client,
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1185,8 +1252,12 @@ class TestAsyncXRayWebhook:
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncXRayWebhook(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
+            client = AsyncXRayReceiver(
+                base_url=base_url,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+                http_client=http_client,
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1195,8 +1266,12 @@ class TestAsyncXRayWebhook:
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncXRayWebhook(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
+            client = AsyncXRayReceiver(
+                base_url=base_url,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+                http_client=http_client,
             )
 
             request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1206,24 +1281,30 @@ class TestAsyncXRayWebhook:
     def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             with httpx.Client() as http_client:
-                AsyncXRayWebhook(
+                AsyncXRayReceiver(
                     base_url=base_url,
-                    api_key=api_key,
+                    client_id=client_id,
+                    client_secret=client_secret,
                     _strict_response_validation=True,
                     http_client=cast(Any, http_client),
                 )
 
     def test_default_headers_option(self) -> None:
-        client = AsyncXRayWebhook(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
+        client = AsyncXRayReceiver(
+            base_url=base_url,
+            client_id=client_id,
+            client_secret=client_secret,
+            _strict_response_validation=True,
+            default_headers={"X-Foo": "bar"},
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = AsyncXRayWebhook(
+        client2 = AsyncXRayReceiver(
             base_url=base_url,
-            api_key=api_key,
+            client_id=client_id,
+            client_secret=client_secret,
             _strict_response_validation=True,
             default_headers={
                 "X-Foo": "stainless",
@@ -1234,28 +1315,13 @@ class TestAsyncXRayWebhook:
         assert request.headers.get("x-foo") == "stainless"
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
-    def test_validate_headers(self) -> None:
-        client = AsyncXRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=True)
-        request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
-        assert request.headers.get("Authorization") == f"Bearer {api_key}"
-
-        with update_env(**{"X_RAY_WEBHOOK_API_KEY": Omit()}):
-            client2 = AsyncXRayWebhook(base_url=base_url, api_key=None, _strict_response_validation=True)
-
-        with pytest.raises(
-            TypeError,
-            match="Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted",
-        ):
-            client2._build_request(FinalRequestOptions(method="get", url="/foo"))
-
-        request2 = client2._build_request(
-            FinalRequestOptions(method="get", url="/foo", headers={"Authorization": Omit()})
-        )
-        assert request2.headers.get("Authorization") is None
-
     def test_default_query_option(self) -> None:
-        client = AsyncXRayWebhook(
-            base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
+        client = AsyncXRayReceiver(
+            base_url=base_url,
+            client_id=client_id,
+            client_secret=client_secret,
+            _strict_response_validation=True,
+            default_query={"query_param": "bar"},
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         url = httpx.URL(request.url)
@@ -1368,7 +1434,7 @@ class TestAsyncXRayWebhook:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, async_client: AsyncXRayWebhook) -> None:
+    def test_multipart_repeating_array(self, async_client: AsyncXRayReceiver) -> None:
         request = async_client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -1455,8 +1521,11 @@ class TestAsyncXRayWebhook:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = AsyncXRayWebhook(
-            base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
+        client = AsyncXRayReceiver(
+            base_url="https://example.com/from_init",
+            client_id=client_id,
+            client_secret=client_secret,
+            _strict_response_validation=True,
         )
         assert client.base_url == "https://example.com/from_init/"
 
@@ -1465,26 +1534,32 @@ class TestAsyncXRayWebhook:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(X_RAY_WEBHOOK_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncXRayWebhook(api_key=api_key, _strict_response_validation=True)
+        with update_env(X_RAY_RECEIVER_BASE_URL="http://localhost:5000/from/env"):
+            client = AsyncXRayReceiver(
+                client_id=client_id, client_secret=client_secret, _strict_response_validation=True
+            )
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncXRayWebhook(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            AsyncXRayWebhook(
+            AsyncXRayReceiver(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+            ),
+            AsyncXRayReceiver(
+                base_url="http://localhost:5000/custom/path/",
+                client_id=client_id,
+                client_secret=client_secret,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: AsyncXRayWebhook) -> None:
+    def test_base_url_trailing_slash(self, client: AsyncXRayReceiver) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1497,19 +1572,23 @@ class TestAsyncXRayWebhook:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncXRayWebhook(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            AsyncXRayWebhook(
+            AsyncXRayReceiver(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+            ),
+            AsyncXRayReceiver(
+                base_url="http://localhost:5000/custom/path/",
+                client_id=client_id,
+                client_secret=client_secret,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: AsyncXRayWebhook) -> None:
+    def test_base_url_no_trailing_slash(self, client: AsyncXRayReceiver) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1522,19 +1601,23 @@ class TestAsyncXRayWebhook:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncXRayWebhook(
-                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
-            ),
-            AsyncXRayWebhook(
+            AsyncXRayReceiver(
                 base_url="http://localhost:5000/custom/path/",
-                api_key=api_key,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+            ),
+            AsyncXRayReceiver(
+                base_url="http://localhost:5000/custom/path/",
+                client_id=client_id,
+                client_secret=client_secret,
                 _strict_response_validation=True,
                 http_client=httpx.AsyncClient(),
             ),
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: AsyncXRayWebhook) -> None:
+    def test_absolute_request_url(self, client: AsyncXRayReceiver) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1545,7 +1628,9 @@ class TestAsyncXRayWebhook:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncXRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncXRayReceiver(
+            base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=True
+        )
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1557,7 +1642,9 @@ class TestAsyncXRayWebhook:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncXRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncXRayReceiver(
+            base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=True
+        )
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1579,8 +1666,12 @@ class TestAsyncXRayWebhook:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncXRayWebhook(
-                base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
+            AsyncXRayReceiver(
+                base_url=base_url,
+                client_id=client_id,
+                client_secret=client_secret,
+                _strict_response_validation=True,
+                max_retries=cast(Any, None),
             )
 
     @pytest.mark.respx(base_url=base_url)
@@ -1591,12 +1682,16 @@ class TestAsyncXRayWebhook:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncXRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = AsyncXRayReceiver(
+            base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=True
+        )
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncXRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = AsyncXRayReceiver(
+            base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=False
+        )
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1625,7 +1720,9 @@ class TestAsyncXRayWebhook:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncXRayWebhook(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncXRayReceiver(
+            base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=True
+        )
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
@@ -1644,30 +1741,27 @@ class TestAsyncXRayWebhook:
                     object,
                     maybe_transform(
                         dict(
-                            member_id=NaN,
+                            member_id=123456789,
                             request={
-                                "_0": "R",
-                                "_1": "E",
-                                "_2": "P",
-                                "_3": "L",
-                                "_4": "A",
-                                "_5": "C",
-                                "_6": "E",
-                                "_7": "_",
-                                "_8": "M",
-                                "_9": "E",
+                                "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
+                                "method": "POST",
+                                "parameters": {
+                                    "key1": "value1",
+                                    "key2": "value2",
+                                },
                             },
                             response={
-                                "_0": "R",
-                                "_1": "E",
-                                "_2": "P",
-                                "_3": "L",
-                                "_4": "A",
-                                "_5": "C",
-                                "_6": "E",
-                                "_7": "_",
-                                "_8": "M",
-                                "_9": "E",
+                                "timestamp": 1740262942,
+                                "result": 1,
+                                "message": "成功",
+                                "data": {
+                                    "member_id": "123456789",
+                                    "nickname": "foo,",
+                                },
+                                "log": {
+                                    "bucket": "x-ray-log",
+                                    "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+                                },
                             },
                         ),
                         APIDataCreateParams,
@@ -1691,30 +1785,27 @@ class TestAsyncXRayWebhook:
                     object,
                     maybe_transform(
                         dict(
-                            member_id=NaN,
+                            member_id=123456789,
                             request={
-                                "_0": "R",
-                                "_1": "E",
-                                "_2": "P",
-                                "_3": "L",
-                                "_4": "A",
-                                "_5": "C",
-                                "_6": "E",
-                                "_7": "_",
-                                "_8": "M",
-                                "_9": "E",
+                                "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
+                                "method": "POST",
+                                "parameters": {
+                                    "key1": "value1",
+                                    "key2": "value2",
+                                },
                             },
                             response={
-                                "_0": "R",
-                                "_1": "E",
-                                "_2": "P",
-                                "_3": "L",
-                                "_4": "A",
-                                "_5": "C",
-                                "_6": "E",
-                                "_7": "_",
-                                "_8": "M",
-                                "_9": "E",
+                                "timestamp": 1740262942,
+                                "result": 1,
+                                "message": "成功",
+                                "data": {
+                                    "member_id": "123456789",
+                                    "nickname": "foo,",
+                                },
+                                "log": {
+                                    "bucket": "x-ray-log",
+                                    "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+                                },
                             },
                         ),
                         APIDataCreateParams,
@@ -1733,7 +1824,7 @@ class TestAsyncXRayWebhook:
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
         self,
-        async_client: AsyncXRayWebhook,
+        async_client: AsyncXRayReceiver,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -1780,7 +1871,7 @@ class TestAsyncXRayWebhook:
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
-        self, async_client: AsyncXRayWebhook, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncXRayReceiver, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1822,7 +1913,7 @@ class TestAsyncXRayWebhook:
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
-        self, async_client: AsyncXRayWebhook, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncXRayReceiver, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
