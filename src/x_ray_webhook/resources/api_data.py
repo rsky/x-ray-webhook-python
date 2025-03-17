@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import api_data_create_params
+from ..types import api_data_send_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._utils import (
     maybe_transform,
@@ -19,7 +19,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.api_data_create_response import APIDataCreateResponse
+from ..types.api_data_send_response import APIDataSendResponse
 
 __all__ = ["APIDataResource", "AsyncAPIDataResource"]
 
@@ -44,20 +44,20 @@ class APIDataResource(SyncAPIResource):
         """
         return APIDataResourceWithStreamingResponse(self)
 
-    def create(
+    def send(
         self,
         *,
         member_id: float,
-        request: api_data_create_params.Request,
-        response: api_data_create_params.Response,
-        log: api_data_create_params.Log | NotGiven = NOT_GIVEN,
+        request: api_data_send_params.Request,
+        response: api_data_send_params.Response,
+        log: api_data_send_params.Log | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> APIDataCreateResponse:
+    ) -> APIDataSendResponse:
         """
         Receive KanColle API request and response
 
@@ -81,12 +81,12 @@ class APIDataResource(SyncAPIResource):
                     "response": response,
                     "log": log,
                 },
-                api_data_create_params.APIDataCreateParams,
+                api_data_send_params.APIDataSendParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=APIDataCreateResponse,
+            cast_to=APIDataSendResponse,
         )
 
 
@@ -110,20 +110,20 @@ class AsyncAPIDataResource(AsyncAPIResource):
         """
         return AsyncAPIDataResourceWithStreamingResponse(self)
 
-    async def create(
+    async def send(
         self,
         *,
         member_id: float,
-        request: api_data_create_params.Request,
-        response: api_data_create_params.Response,
-        log: api_data_create_params.Log | NotGiven = NOT_GIVEN,
+        request: api_data_send_params.Request,
+        response: api_data_send_params.Response,
+        log: api_data_send_params.Log | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> APIDataCreateResponse:
+    ) -> APIDataSendResponse:
         """
         Receive KanColle API request and response
 
@@ -147,12 +147,12 @@ class AsyncAPIDataResource(AsyncAPIResource):
                     "response": response,
                     "log": log,
                 },
-                api_data_create_params.APIDataCreateParams,
+                api_data_send_params.APIDataSendParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=APIDataCreateResponse,
+            cast_to=APIDataSendResponse,
         )
 
 
@@ -160,8 +160,8 @@ class APIDataResourceWithRawResponse:
     def __init__(self, api_data: APIDataResource) -> None:
         self._api_data = api_data
 
-        self.create = to_raw_response_wrapper(
-            api_data.create,
+        self.send = to_raw_response_wrapper(
+            api_data.send,
         )
 
 
@@ -169,8 +169,8 @@ class AsyncAPIDataResourceWithRawResponse:
     def __init__(self, api_data: AsyncAPIDataResource) -> None:
         self._api_data = api_data
 
-        self.create = async_to_raw_response_wrapper(
-            api_data.create,
+        self.send = async_to_raw_response_wrapper(
+            api_data.send,
         )
 
 
@@ -178,8 +178,8 @@ class APIDataResourceWithStreamingResponse:
     def __init__(self, api_data: APIDataResource) -> None:
         self._api_data = api_data
 
-        self.create = to_streamed_response_wrapper(
-            api_data.create,
+        self.send = to_streamed_response_wrapper(
+            api_data.send,
         )
 
 
@@ -187,6 +187,6 @@ class AsyncAPIDataResourceWithStreamingResponse:
     def __init__(self, api_data: AsyncAPIDataResource) -> None:
         self._api_data = api_data
 
-        self.create = async_to_streamed_response_wrapper(
-            api_data.create,
+        self.send = async_to_streamed_response_wrapper(
+            api_data.send,
         )

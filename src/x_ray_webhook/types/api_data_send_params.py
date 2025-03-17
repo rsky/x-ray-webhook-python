@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["APIDataCreateParams", "Request", "Response", "Log"]
+__all__ = ["APIDataSendParams", "Request", "Response", "Log"]
 
 
-class APIDataCreateParams(TypedDict, total=False):
+class APIDataSendParams(TypedDict, total=False):
     member_id: Required[float]
     """Member ID"""
 

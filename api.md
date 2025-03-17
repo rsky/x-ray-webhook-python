@@ -3,12 +3,12 @@
 Types:
 
 ```python
-from x_ray_webhook.types import APIDataCreateResponse
+from x_ray_webhook.types import APIDataSendResponse
 ```
 
 Methods:
 
-- <code title="post /api_data">client.api_data.<a href="./src/x_ray_webhook/resources/api_data.py">create</a>(\*\*<a href="src/x_ray_webhook/types/api_data_create_params.py">params</a>) -> <a href="./src/x_ray_webhook/types/api_data_create_response.py">APIDataCreateResponse</a></code>
+- <code title="post /api_data">client.api_data.<a href="./src/x_ray_webhook/resources/api_data.py">send</a>(\*\*<a href="src/x_ray_webhook/types/api_data_send_params.py">params</a>) -> <a href="./src/x_ray_webhook/types/api_data_send_response.py">APIDataSendResponse</a></code>
 
 # Cache
 

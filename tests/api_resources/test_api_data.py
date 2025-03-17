@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from x_ray_webhook import XRayWebhook, AsyncXRayWebhook
-from x_ray_webhook.types import APIDataCreateResponse
+from x_ray_webhook.types import APIDataSendResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,8 +19,8 @@ class TestAPIData:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_create(self, client: XRayWebhook) -> None:
-        api_data = client.api_data.create(
+    def test_method_send(self, client: XRayWebhook) -> None:
+        api_data = client.api_data.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -38,12 +38,12 @@ class TestAPIData:
                 "timestamp": 1740262942,
             },
         )
-        assert_matches_type(APIDataCreateResponse, api_data, path=["response"])
+        assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_create_with_all_params(self, client: XRayWebhook) -> None:
-        api_data = client.api_data.create(
+    def test_method_send_with_all_params(self, client: XRayWebhook) -> None:
+        api_data = client.api_data.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -65,12 +65,12 @@ class TestAPIData:
                 "key": "sortie_log/2025/02/22/222222_222222_kcsapi_api_req_sortie_battle.json.br",
             },
         )
-        assert_matches_type(APIDataCreateResponse, api_data, path=["response"])
+        assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_create(self, client: XRayWebhook) -> None:
-        response = client.api_data.with_raw_response.create(
+    def test_raw_response_send(self, client: XRayWebhook) -> None:
+        response = client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -92,12 +92,12 @@ class TestAPIData:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         api_data = response.parse()
-        assert_matches_type(APIDataCreateResponse, api_data, path=["response"])
+        assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_create(self, client: XRayWebhook) -> None:
-        with client.api_data.with_streaming_response.create(
+    def test_streaming_response_send(self, client: XRayWebhook) -> None:
+        with client.api_data.with_streaming_response.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -119,7 +119,7 @@ class TestAPIData:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             api_data = response.parse()
-            assert_matches_type(APIDataCreateResponse, api_data, path=["response"])
+            assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -129,8 +129,8 @@ class TestAsyncAPIData:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_create(self, async_client: AsyncXRayWebhook) -> None:
-        api_data = await async_client.api_data.create(
+    async def test_method_send(self, async_client: AsyncXRayWebhook) -> None:
+        api_data = await async_client.api_data.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -148,12 +148,12 @@ class TestAsyncAPIData:
                 "timestamp": 1740262942,
             },
         )
-        assert_matches_type(APIDataCreateResponse, api_data, path=["response"])
+        assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncXRayWebhook) -> None:
-        api_data = await async_client.api_data.create(
+    async def test_method_send_with_all_params(self, async_client: AsyncXRayWebhook) -> None:
+        api_data = await async_client.api_data.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -175,12 +175,12 @@ class TestAsyncAPIData:
                 "key": "sortie_log/2025/02/22/222222_222222_kcsapi_api_req_sortie_battle.json.br",
             },
         )
-        assert_matches_type(APIDataCreateResponse, api_data, path=["response"])
+        assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncXRayWebhook) -> None:
-        response = await async_client.api_data.with_raw_response.create(
+    async def test_raw_response_send(self, async_client: AsyncXRayWebhook) -> None:
+        response = await async_client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -202,12 +202,12 @@ class TestAsyncAPIData:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         api_data = await response.parse()
-        assert_matches_type(APIDataCreateResponse, api_data, path=["response"])
+        assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncXRayWebhook) -> None:
-        async with async_client.api_data.with_streaming_response.create(
+    async def test_streaming_response_send(self, async_client: AsyncXRayWebhook) -> None:
+        async with async_client.api_data.with_streaming_response.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -229,6 +229,6 @@ class TestAsyncAPIData:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             api_data = await response.parse()
-            assert_matches_type(APIDataCreateResponse, api_data, path=["response"])
+            assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
         assert cast(Any, response.is_closed) is True

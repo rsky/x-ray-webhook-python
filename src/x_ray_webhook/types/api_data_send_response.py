@@ -3,9 +3,9 @@
 
 from .._models import BaseModel
 
-__all__ = ["APIDataCreateResponse"]
+__all__ = ["APIDataSendResponse"]
 
 
-class APIDataCreateResponse(BaseModel):
+class APIDataSendResponse(BaseModel):
     result: str
     """Result"""
