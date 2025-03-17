@@ -1,8 +1,8 @@
-# X Ray Receiver Python API library
+# X Ray Webhook Python API library
 
 [![PyPI version](https://img.shields.io/pypi/v/x_ray_webhook.svg)](https://pypi.org/project/x_ray_webhook/)
 
-The X Ray Receiver Python library provides convenient access to the X Ray Receiver REST API from any Python 3.8+
+The X Ray Webhook Python library provides convenient access to the X Ray Webhook REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -27,9 +27,9 @@ pip install git+ssh://git@github.com/stainless-sdks/x-ray-webhook-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-from x_ray_webhook import XRayReceiver
+from x_ray_webhook import XRayWebhook
 
-client = XRayReceiver(
+client = XRayWebhook(
     client_id="My Client ID",
     client_secret="My Client Secret",
 )
@@ -42,13 +42,13 @@ print(response.result)
 
 ## Async usage
 
-Simply import `AsyncXRayReceiver` instead of `XRayReceiver` and use `await` with each API call:
+Simply import `AsyncXRayWebhook` instead of `XRayWebhook` and use `await` with each API call:
 
 ```python
 import asyncio
-from x_ray_webhook import AsyncXRayReceiver
+from x_ray_webhook import AsyncXRayWebhook
 
-client = AsyncXRayReceiver(
+client = AsyncXRayWebhook(
     client_id="My Client ID",
     client_secret="My Client Secret",
 )
@@ -80,9 +80,9 @@ Typed requests and responses provide autocomplete and documentation within your 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from x_ray_webhook import XRayReceiver
+from x_ray_webhook import XRayWebhook
 
-client = XRayReceiver(
+client = XRayWebhook(
     client_id="My Client ID",
     client_secret="My Client Secret",
 )
@@ -119,9 +119,9 @@ All errors inherit from `x_ray_webhook.APIError`.
 
 ```python
 import x_ray_webhook
-from x_ray_webhook import XRayReceiver
+from x_ray_webhook import XRayWebhook
 
-client = XRayReceiver(
+client = XRayWebhook(
     client_id="My Client ID",
     client_secret="My Client Secret",
 )
@@ -184,10 +184,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from x_ray_webhook import XRayReceiver
+from x_ray_webhook import XRayWebhook
 
 # Configure the default for all requests:
-client = XRayReceiver(
+client = XRayWebhook(
     # default is 2
     max_retries=0,
     client_id="My Client ID",
@@ -227,10 +227,10 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from x_ray_webhook import XRayReceiver
+from x_ray_webhook import XRayWebhook
 
 # Configure the default for all requests:
-client = XRayReceiver(
+client = XRayWebhook(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
     client_id="My Client ID",
@@ -238,7 +238,7 @@ client = XRayReceiver(
 )
 
 # More granular control:
-client = XRayReceiver(
+client = XRayWebhook(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
     client_id="My Client ID",
     client_secret="My Client Secret",
@@ -281,10 +281,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `X_RAY_RECEIVER_LOG` to `info`.
+You can enable logging by setting the environment variable `X_RAY_WEBHOOK_LOG` to `info`.
 
 ```shell
-$ export X_RAY_RECEIVER_LOG=info
+$ export X_RAY_WEBHOOK_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -306,9 +306,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from x_ray_webhook import XRayReceiver
+from x_ray_webhook import XRayWebhook
 
-client = XRayReceiver(
+client = XRayWebhook(
     client_id="My Client ID",
     client_secret="My Client Secret",
 )
@@ -429,10 +429,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from x_ray_webhook import XRayReceiver, DefaultHttpxClient
+from x_ray_webhook import XRayWebhook, DefaultHttpxClient
 
-client = XRayReceiver(
-    # Or use the `X_RAY_RECEIVER_BASE_URL` env var
+client = XRayWebhook(
+    # Or use the `X_RAY_WEBHOOK_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -454,9 +454,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from x_ray_webhook import XRayReceiver
+from x_ray_webhook import XRayWebhook
 
-with XRayReceiver(
+with XRayWebhook(
     client_id="My Client ID",
     client_secret="My Client Secret",
 ) as client:

@@ -38,18 +38,18 @@ __all__ = [
     "Transport",
     "ProxiesTypes",
     "RequestOptions",
-    "XRayReceiver",
-    "AsyncXRayReceiver",
+    "XRayWebhook",
+    "AsyncXRayWebhook",
     "Client",
     "AsyncClient",
 ]
 
 
-class XRayReceiver(SyncAPIClient):
+class XRayWebhook(SyncAPIClient):
     api_data: api_data.APIDataResource
     cache: cache.CacheResource
-    with_raw_response: XRayReceiverWithRawResponse
-    with_streaming_response: XRayReceiverWithStreamedResponse
+    with_raw_response: XRayWebhookWithRawResponse
+    with_streaming_response: XRayWebhookWithStreamedResponse
 
     # client options
     client_id: str
@@ -79,13 +79,13 @@ class XRayReceiver(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous XRayReceiver client instance."""
+        """Construct a new synchronous XRayWebhook client instance."""
         self.client_id = client_id
 
         self.client_secret = client_secret
 
         if base_url is None:
-            base_url = os.environ.get("X_RAY_RECEIVER_BASE_URL")
+            base_url = os.environ.get("X_RAY_WEBHOOK_BASE_URL")
         if base_url is None:
             base_url = f"http://localhost:8082/webhook"
 
@@ -102,8 +102,8 @@ class XRayReceiver(SyncAPIClient):
 
         self.api_data = api_data.APIDataResource(self)
         self.cache = cache.CacheResource(self)
-        self.with_raw_response = XRayReceiverWithRawResponse(self)
-        self.with_streaming_response = XRayReceiverWithStreamedResponse(self)
+        self.with_raw_response = XRayWebhookWithRawResponse(self)
+        self.with_streaming_response = XRayWebhookWithStreamedResponse(self)
 
     @property
     @override
@@ -208,11 +208,11 @@ class XRayReceiver(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncXRayReceiver(AsyncAPIClient):
+class AsyncXRayWebhook(AsyncAPIClient):
     api_data: api_data.AsyncAPIDataResource
     cache: cache.AsyncCacheResource
-    with_raw_response: AsyncXRayReceiverWithRawResponse
-    with_streaming_response: AsyncXRayReceiverWithStreamedResponse
+    with_raw_response: AsyncXRayWebhookWithRawResponse
+    with_streaming_response: AsyncXRayWebhookWithStreamedResponse
 
     # client options
     client_id: str
@@ -242,13 +242,13 @@ class AsyncXRayReceiver(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async AsyncXRayReceiver client instance."""
+        """Construct a new async AsyncXRayWebhook client instance."""
         self.client_id = client_id
 
         self.client_secret = client_secret
 
         if base_url is None:
-            base_url = os.environ.get("X_RAY_RECEIVER_BASE_URL")
+            base_url = os.environ.get("X_RAY_WEBHOOK_BASE_URL")
         if base_url is None:
             base_url = f"http://localhost:8082/webhook"
 
@@ -265,8 +265,8 @@ class AsyncXRayReceiver(AsyncAPIClient):
 
         self.api_data = api_data.AsyncAPIDataResource(self)
         self.cache = cache.AsyncCacheResource(self)
-        self.with_raw_response = AsyncXRayReceiverWithRawResponse(self)
-        self.with_streaming_response = AsyncXRayReceiverWithStreamedResponse(self)
+        self.with_raw_response = AsyncXRayWebhookWithRawResponse(self)
+        self.with_streaming_response = AsyncXRayWebhookWithStreamedResponse(self)
 
     @property
     @override
@@ -371,30 +371,30 @@ class AsyncXRayReceiver(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class XRayReceiverWithRawResponse:
-    def __init__(self, client: XRayReceiver) -> None:
+class XRayWebhookWithRawResponse:
+    def __init__(self, client: XRayWebhook) -> None:
         self.api_data = api_data.APIDataResourceWithRawResponse(client.api_data)
         self.cache = cache.CacheResourceWithRawResponse(client.cache)
 
 
-class AsyncXRayReceiverWithRawResponse:
-    def __init__(self, client: AsyncXRayReceiver) -> None:
+class AsyncXRayWebhookWithRawResponse:
+    def __init__(self, client: AsyncXRayWebhook) -> None:
         self.api_data = api_data.AsyncAPIDataResourceWithRawResponse(client.api_data)
         self.cache = cache.AsyncCacheResourceWithRawResponse(client.cache)
 
 
-class XRayReceiverWithStreamedResponse:
-    def __init__(self, client: XRayReceiver) -> None:
+class XRayWebhookWithStreamedResponse:
+    def __init__(self, client: XRayWebhook) -> None:
         self.api_data = api_data.APIDataResourceWithStreamingResponse(client.api_data)
         self.cache = cache.CacheResourceWithStreamingResponse(client.cache)
 
 
-class AsyncXRayReceiverWithStreamedResponse:
-    def __init__(self, client: AsyncXRayReceiver) -> None:
+class AsyncXRayWebhookWithStreamedResponse:
+    def __init__(self, client: AsyncXRayWebhook) -> None:
         self.api_data = api_data.AsyncAPIDataResourceWithStreamingResponse(client.api_data)
         self.cache = cache.AsyncCacheResourceWithStreamingResponse(client.cache)
 
 
-Client = XRayReceiver
+Client = XRayWebhook
 
-AsyncClient = AsyncXRayReceiver
+AsyncClient = AsyncXRayWebhook

@@ -1,11 +1,11 @@
 [project]
 name = "x_ray_webhook"
 version = "0.0.1-alpha.0"
-description = "The official Python library for the x-ray-receiver API"
+description = "The official Python library for the x-ray-webhook API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "X Ray Receiver", email = "rsky0711@gmail.com" },
+{ name = "X Ray Webhook", email = "rsky0711@gmail.com" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",
