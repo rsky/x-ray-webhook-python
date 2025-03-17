@@ -143,10 +143,10 @@ try:
                 "member_id": "123456789",
                 "nickname": "foo,",
             },
-            "log": {
-                "bucket": "x-ray-log",
-                "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
-            },
+        },
+        log={
+            "bucket": "x-ray-log",
+            "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
         },
     )
 except x_ray_webhook.APIConnectionError as e:
@@ -209,10 +209,10 @@ client.with_options(max_retries=5).api_data.send(
             "member_id": "123456789",
             "nickname": "foo,",
         },
-        "log": {
-            "bucket": "x-ray-log",
-            "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
-        },
+    },
+    log={
+        "bucket": "x-ray-log",
+        "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
     },
 )
 ```
@@ -257,10 +257,10 @@ client.with_options(timeout=5.0).api_data.send(
             "member_id": "123456789",
             "nickname": "foo,",
         },
-        "log": {
-            "bucket": "x-ray-log",
-            "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
-        },
+    },
+    log={
+        "bucket": "x-ray-log",
+        "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
     },
 )
 ```
@@ -322,10 +322,10 @@ response = client.api_data.with_raw_response.send(
             "member_id": "123456789",
             "nickname": "foo,",
         },
-        "log": {
-            "bucket": "x-ray-log",
-            "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
-        },
+    },
+    log={
+        "bucket": "x-ray-log",
+        "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
     },
 )
 print(response.headers.get('X-My-Header'))
@@ -361,10 +361,10 @@ with client.api_data.with_streaming_response.send(
             "member_id": "123456789",
             "nickname": "foo,",
         },
-        "log": {
-            "bucket": "x-ray-log",
-            "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
-        },
+    },
+    log={
+        "bucket": "x-ray-log",
+        "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
     },
 ) as response:
     print(response.headers.get("X-My-Header"))

@@ -808,10 +808,10 @@ class TestXRayWebhook:
                                     "member_id": "123456789",
                                     "nickname": "foo,",
                                 },
-                                "log": {
-                                    "bucket": "x-ray-log",
-                                    "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
-                                },
+                            },
+                            log={
+                                "bucket": "x-ray-log",
+                                "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
                             },
                         ),
                         APIDataSendParams,
@@ -850,10 +850,10 @@ class TestXRayWebhook:
                                     "member_id": "123456789",
                                     "nickname": "foo,",
                                 },
-                                "log": {
-                                    "bucket": "x-ray-log",
-                                    "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
-                                },
+                            },
+                            log={
+                                "bucket": "x-ray-log",
+                                "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
                             },
                         ),
                         APIDataSendParams,
@@ -1752,10 +1752,10 @@ class TestAsyncXRayWebhook:
                                     "member_id": "123456789",
                                     "nickname": "foo,",
                                 },
-                                "log": {
-                                    "bucket": "x-ray-log",
-                                    "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
-                                },
+                            },
+                            log={
+                                "bucket": "x-ray-log",
+                                "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
                             },
                         ),
                         APIDataSendParams,
@@ -1794,10 +1794,10 @@ class TestAsyncXRayWebhook:
                                     "member_id": "123456789",
                                     "nickname": "foo,",
                                 },
-                                "log": {
-                                    "bucket": "x-ray-log",
-                                    "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
-                                },
+                            },
+                            log={
+                                "bucket": "x-ray-log",
+                                "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
                             },
                         ),
                         APIDataSendParams,
