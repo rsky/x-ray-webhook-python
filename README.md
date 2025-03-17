@@ -87,7 +87,7 @@ client = XRayWebhook(
     client_secret="My Client Secret",
 )
 
-api_data = client.api_data.create(
+response = client.api_data.send(
     member_id=123456789,
     request={
         "method": "GET",
@@ -105,7 +105,7 @@ api_data = client.api_data.create(
         "timestamp": 1740262942,
     },
 )
-print(api_data.request)
+print(response.request)
 ```
 
 ## Handling errors
@@ -127,7 +127,7 @@ client = XRayWebhook(
 )
 
 try:
-    client.api_data.create(
+    client.api_data.send(
         member_id=123456789,
         request={
             "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
@@ -139,8 +139,6 @@ try:
         },
         response={
             "timestamp": 1740262942,
-            "result": 1,
-            "message": "成功",
             "data": {
                 "member_id": "123456789",
                 "nickname": "foo,",
@@ -195,7 +193,7 @@ client = XRayWebhook(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).api_data.create(
+client.with_options(max_retries=5).api_data.send(
     member_id=123456789,
     request={
         "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
@@ -207,8 +205,6 @@ client.with_options(max_retries=5).api_data.create(
     },
     response={
         "timestamp": 1740262942,
-        "result": 1,
-        "message": "成功",
         "data": {
             "member_id": "123456789",
             "nickname": "foo,",
@@ -245,7 +241,7 @@ client = XRayWebhook(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).api_data.create(
+client.with_options(timeout=5.0).api_data.send(
     member_id=123456789,
     request={
         "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
@@ -257,8 +253,6 @@ client.with_options(timeout=5.0).api_data.create(
     },
     response={
         "timestamp": 1740262942,
-        "result": 1,
-        "message": "成功",
         "data": {
             "member_id": "123456789",
             "nickname": "foo,",
@@ -312,7 +306,7 @@ client = XRayWebhook(
     client_id="My Client ID",
     client_secret="My Client Secret",
 )
-response = client.api_data.with_raw_response.create(
+response = client.api_data.with_raw_response.send(
     member_id=123456789,
     request={
         "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
@@ -324,8 +318,6 @@ response = client.api_data.with_raw_response.create(
     },
     response={
         "timestamp": 1740262942,
-        "result": 1,
-        "message": "成功",
         "data": {
             "member_id": "123456789",
             "nickname": "foo,",
@@ -338,7 +330,7 @@ response = client.api_data.with_raw_response.create(
 )
 print(response.headers.get('X-My-Header'))
 
-api_data = response.parse()  # get the object that `api_data.create()` would have returned
+api_data = response.parse()  # get the object that `api_data.send()` would have returned
 print(api_data.result)
 ```
 
@@ -353,7 +345,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.api_data.with_streaming_response.create(
+with client.api_data.with_streaming_response.send(
     member_id=123456789,
     request={
         "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
@@ -365,8 +357,6 @@ with client.api_data.with_streaming_response.create(
     },
     response={
         "timestamp": 1740262942,
-        "result": 1,
-        "message": "成功",
         "data": {
             "member_id": "123456789",
             "nickname": "foo,",

@@ -33,7 +33,7 @@ from x_ray_webhook._base_client import (
     BaseClient,
     make_request_options,
 )
-from x_ray_webhook.types.api_data_create_params import APIDataCreateParams
+from x_ray_webhook.types.api_data_send_params import APIDataSendParams
 
 from .utils import update_env
 
@@ -804,8 +804,6 @@ class TestXRayWebhook:
                             },
                             response={
                                 "timestamp": 1740262942,
-                                "result": 1,
-                                "message": "成功",
                                 "data": {
                                     "member_id": "123456789",
                                     "nickname": "foo,",
@@ -816,7 +814,7 @@ class TestXRayWebhook:
                                 },
                             },
                         ),
-                        APIDataCreateParams,
+                        APIDataSendParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -848,8 +846,6 @@ class TestXRayWebhook:
                             },
                             response={
                                 "timestamp": 1740262942,
-                                "result": 1,
-                                "message": "成功",
                                 "data": {
                                     "member_id": "123456789",
                                     "nickname": "foo,",
@@ -860,7 +856,7 @@ class TestXRayWebhook:
                                 },
                             },
                         ),
-                        APIDataCreateParams,
+                        APIDataSendParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -895,7 +891,7 @@ class TestXRayWebhook:
 
         respx_mock.post("/api_data").mock(side_effect=retry_handler)
 
-        response = client.api_data.with_raw_response.create(
+        response = client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -936,7 +932,7 @@ class TestXRayWebhook:
 
         respx_mock.post("/api_data").mock(side_effect=retry_handler)
 
-        response = client.api_data.with_raw_response.create(
+        response = client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -977,7 +973,7 @@ class TestXRayWebhook:
 
         respx_mock.post("/api_data").mock(side_effect=retry_handler)
 
-        response = client.api_data.with_raw_response.create(
+        response = client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -1752,8 +1748,6 @@ class TestAsyncXRayWebhook:
                             },
                             response={
                                 "timestamp": 1740262942,
-                                "result": 1,
-                                "message": "成功",
                                 "data": {
                                     "member_id": "123456789",
                                     "nickname": "foo,",
@@ -1764,7 +1758,7 @@ class TestAsyncXRayWebhook:
                                 },
                             },
                         ),
-                        APIDataCreateParams,
+                        APIDataSendParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1796,8 +1790,6 @@ class TestAsyncXRayWebhook:
                             },
                             response={
                                 "timestamp": 1740262942,
-                                "result": 1,
-                                "message": "成功",
                                 "data": {
                                     "member_id": "123456789",
                                     "nickname": "foo,",
@@ -1808,7 +1800,7 @@ class TestAsyncXRayWebhook:
                                 },
                             },
                         ),
-                        APIDataCreateParams,
+                        APIDataSendParams,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1844,7 +1836,7 @@ class TestAsyncXRayWebhook:
 
         respx_mock.post("/api_data").mock(side_effect=retry_handler)
 
-        response = await client.api_data.with_raw_response.create(
+        response = await client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -1886,7 +1878,7 @@ class TestAsyncXRayWebhook:
 
         respx_mock.post("/api_data").mock(side_effect=retry_handler)
 
-        response = await client.api_data.with_raw_response.create(
+        response = await client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
                 "method": "GET",
@@ -1928,7 +1920,7 @@ class TestAsyncXRayWebhook:
 
         respx_mock.post("/api_data").mock(side_effect=retry_handler)
 
-        response = await client.api_data.with_raw_response.create(
+        response = await client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
                 "method": "GET",
