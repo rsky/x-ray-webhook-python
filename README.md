@@ -1,8 +1,8 @@
-# X Ray Webhook Python API library
+# X Ray Receiver Python API library
 
 [![PyPI version](https://img.shields.io/pypi/v/x_ray_webhook.svg)](https://pypi.org/project/x_ray_webhook/)
 
-The X Ray Webhook Python library provides convenient access to the X Ray Webhook REST API from any Python 3.8+
+The X Ray Receiver Python library provides convenient access to the X Ray Receiver REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -10,7 +10,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [docs.x-ray-webhook.com](https://docs.x-ray-webhook.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [github.com](https://github.com/rsky/x-ray). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -27,91 +27,38 @@ pip install git+ssh://git@github.com/stainless-sdks/x-ray-webhook-python.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
-from x_ray_webhook import XRayWebhook
+from x_ray_webhook import XRayReceiver
 
-client = XRayWebhook(
-    api_key=os.environ.get("X_RAY_WEBHOOK_API_KEY"),  # This is the default and can be omitted
+client = XRayReceiver(
+    client_id="My Client ID",
+    client_secret="My Client Secret",
 )
 
-api_data = client.api_data.create(
-    member_id=NaN,
-    request={
-        "_0": "R",
-        "_1": "E",
-        "_2": "P",
-        "_3": "L",
-        "_4": "A",
-        "_5": "C",
-        "_6": "E",
-        "_7": "_",
-        "_8": "M",
-        "_9": "E",
-    },
-    response={
-        "_0": "R",
-        "_1": "E",
-        "_2": "P",
-        "_3": "L",
-        "_4": "A",
-        "_5": "C",
-        "_6": "E",
-        "_7": "_",
-        "_8": "M",
-        "_9": "E",
-    },
+response = client.cache.invalidate(
+    key="assets/ships/0001/full.webp",
 )
-print(api_data.result)
+print(response.result)
 ```
-
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `X_RAY_WEBHOOK_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncXRayWebhook` instead of `XRayWebhook` and use `await` with each API call:
+Simply import `AsyncXRayReceiver` instead of `XRayReceiver` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
-from x_ray_webhook import AsyncXRayWebhook
+from x_ray_webhook import AsyncXRayReceiver
 
-client = AsyncXRayWebhook(
-    api_key=os.environ.get("X_RAY_WEBHOOK_API_KEY"),  # This is the default and can be omitted
+client = AsyncXRayReceiver(
+    client_id="My Client ID",
+    client_secret="My Client Secret",
 )
 
 
 async def main() -> None:
-    api_data = await client.api_data.create(
-        member_id=NaN,
-        request={
-            "_0": "R",
-            "_1": "E",
-            "_2": "P",
-            "_3": "L",
-            "_4": "A",
-            "_5": "C",
-            "_6": "E",
-            "_7": "_",
-            "_8": "M",
-            "_9": "E",
-        },
-        response={
-            "_0": "R",
-            "_1": "E",
-            "_2": "P",
-            "_3": "L",
-            "_4": "A",
-            "_5": "C",
-            "_6": "E",
-            "_7": "_",
-            "_8": "M",
-            "_9": "E",
-        },
+    response = await client.cache.invalidate(
+        key="assets/ships/0001/full.webp",
     )
-    print(api_data.result)
+    print(response.result)
 
 
 asyncio.run(main())
@@ -133,9 +80,12 @@ Typed requests and responses provide autocomplete and documentation within your 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from x_ray_webhook import XRayWebhook
+from x_ray_webhook import XRayReceiver
 
-client = XRayWebhook()
+client = XRayReceiver(
+    client_id="My Client ID",
+    client_secret="My Client Secret",
+)
 
 api_data = client.api_data.create(
     member_id=123456789,
@@ -169,36 +119,36 @@ All errors inherit from `x_ray_webhook.APIError`.
 
 ```python
 import x_ray_webhook
-from x_ray_webhook import XRayWebhook
+from x_ray_webhook import XRayReceiver
 
-client = XRayWebhook()
+client = XRayReceiver(
+    client_id="My Client ID",
+    client_secret="My Client Secret",
+)
 
 try:
     client.api_data.create(
-        member_id=NaN,
+        member_id=123456789,
         request={
-            "_0": "R",
-            "_1": "E",
-            "_2": "P",
-            "_3": "L",
-            "_4": "A",
-            "_5": "C",
-            "_6": "E",
-            "_7": "_",
-            "_8": "M",
-            "_9": "E",
+            "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
+            "method": "POST",
+            "parameters": {
+                "key1": "value1",
+                "key2": "value2",
+            },
         },
         response={
-            "_0": "R",
-            "_1": "E",
-            "_2": "P",
-            "_3": "L",
-            "_4": "A",
-            "_5": "C",
-            "_6": "E",
-            "_7": "_",
-            "_8": "M",
-            "_9": "E",
+            "timestamp": 1740262942,
+            "result": 1,
+            "message": "成功",
+            "data": {
+                "member_id": "123456789",
+                "nickname": "foo,",
+            },
+            "log": {
+                "bucket": "x-ray-log",
+                "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+            },
         },
     )
 except x_ray_webhook.APIConnectionError as e:
@@ -234,40 +184,39 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from x_ray_webhook import XRayWebhook
+from x_ray_webhook import XRayReceiver
 
 # Configure the default for all requests:
-client = XRayWebhook(
+client = XRayReceiver(
     # default is 2
     max_retries=0,
+    client_id="My Client ID",
+    client_secret="My Client Secret",
 )
 
 # Or, configure per-request:
 client.with_options(max_retries=5).api_data.create(
-    member_id=NaN,
+    member_id=123456789,
     request={
-        "_0": "R",
-        "_1": "E",
-        "_2": "P",
-        "_3": "L",
-        "_4": "A",
-        "_5": "C",
-        "_6": "E",
-        "_7": "_",
-        "_8": "M",
-        "_9": "E",
+        "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
+        "method": "POST",
+        "parameters": {
+            "key1": "value1",
+            "key2": "value2",
+        },
     },
     response={
-        "_0": "R",
-        "_1": "E",
-        "_2": "P",
-        "_3": "L",
-        "_4": "A",
-        "_5": "C",
-        "_6": "E",
-        "_7": "_",
-        "_8": "M",
-        "_9": "E",
+        "timestamp": 1740262942,
+        "result": 1,
+        "message": "成功",
+        "data": {
+            "member_id": "123456789",
+            "nickname": "foo,",
+        },
+        "log": {
+            "bucket": "x-ray-log",
+            "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+        },
     },
 )
 ```
@@ -278,45 +227,46 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from x_ray_webhook import XRayWebhook
+from x_ray_webhook import XRayReceiver
 
 # Configure the default for all requests:
-client = XRayWebhook(
+client = XRayReceiver(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
+    client_id="My Client ID",
+    client_secret="My Client Secret",
 )
 
 # More granular control:
-client = XRayWebhook(
+client = XRayReceiver(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
+    client_id="My Client ID",
+    client_secret="My Client Secret",
 )
 
 # Override per-request:
 client.with_options(timeout=5.0).api_data.create(
-    member_id=NaN,
+    member_id=123456789,
     request={
-        "_0": "R",
-        "_1": "E",
-        "_2": "P",
-        "_3": "L",
-        "_4": "A",
-        "_5": "C",
-        "_6": "E",
-        "_7": "_",
-        "_8": "M",
-        "_9": "E",
+        "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
+        "method": "POST",
+        "parameters": {
+            "key1": "value1",
+            "key2": "value2",
+        },
     },
     response={
-        "_0": "R",
-        "_1": "E",
-        "_2": "P",
-        "_3": "L",
-        "_4": "A",
-        "_5": "C",
-        "_6": "E",
-        "_7": "_",
-        "_8": "M",
-        "_9": "E",
+        "timestamp": 1740262942,
+        "result": 1,
+        "message": "成功",
+        "data": {
+            "member_id": "123456789",
+            "nickname": "foo,",
+        },
+        "log": {
+            "bucket": "x-ray-log",
+            "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+        },
     },
 )
 ```
@@ -331,10 +281,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `X_RAY_WEBHOOK_LOG` to `info`.
+You can enable logging by setting the environment variable `X_RAY_RECEIVER_LOG` to `info`.
 
 ```shell
-$ export X_RAY_WEBHOOK_LOG=info
+$ export X_RAY_RECEIVER_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -356,34 +306,34 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from x_ray_webhook import XRayWebhook
+from x_ray_webhook import XRayReceiver
 
-client = XRayWebhook()
+client = XRayReceiver(
+    client_id="My Client ID",
+    client_secret="My Client Secret",
+)
 response = client.api_data.with_raw_response.create(
-    member_id=NaN,
+    member_id=123456789,
     request={
-        "_0": "R",
-        "_1": "E",
-        "_2": "P",
-        "_3": "L",
-        "_4": "A",
-        "_5": "C",
-        "_6": "E",
-        "_7": "_",
-        "_8": "M",
-        "_9": "E",
+        "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
+        "method": "POST",
+        "parameters": {
+            "key1": "value1",
+            "key2": "value2",
+        },
     },
     response={
-        "_0": "R",
-        "_1": "E",
-        "_2": "P",
-        "_3": "L",
-        "_4": "A",
-        "_5": "C",
-        "_6": "E",
-        "_7": "_",
-        "_8": "M",
-        "_9": "E",
+        "timestamp": 1740262942,
+        "result": 1,
+        "message": "成功",
+        "data": {
+            "member_id": "123456789",
+            "nickname": "foo,",
+        },
+        "log": {
+            "bucket": "x-ray-log",
+            "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+        },
     },
 )
 print(response.headers.get('X-My-Header'))
@@ -404,30 +354,27 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.api_data.with_streaming_response.create(
-    member_id=NaN,
+    member_id=123456789,
     request={
-        "_0": "R",
-        "_1": "E",
-        "_2": "P",
-        "_3": "L",
-        "_4": "A",
-        "_5": "C",
-        "_6": "E",
-        "_7": "_",
-        "_8": "M",
-        "_9": "E",
+        "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
+        "method": "POST",
+        "parameters": {
+            "key1": "value1",
+            "key2": "value2",
+        },
     },
     response={
-        "_0": "R",
-        "_1": "E",
-        "_2": "P",
-        "_3": "L",
-        "_4": "A",
-        "_5": "C",
-        "_6": "E",
-        "_7": "_",
-        "_8": "M",
-        "_9": "E",
+        "timestamp": 1740262942,
+        "result": 1,
+        "message": "成功",
+        "data": {
+            "member_id": "123456789",
+            "nickname": "foo,",
+        },
+        "log": {
+            "bucket": "x-ray-log",
+            "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+        },
     },
 ) as response:
     print(response.headers.get("X-My-Header"))
@@ -482,15 +429,17 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from x_ray_webhook import XRayWebhook, DefaultHttpxClient
+from x_ray_webhook import XRayReceiver, DefaultHttpxClient
 
-client = XRayWebhook(
-    # Or use the `X_RAY_WEBHOOK_BASE_URL` env var
+client = XRayReceiver(
+    # Or use the `X_RAY_RECEIVER_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
+    client_id="My Client ID",
+    client_secret="My Client Secret",
 )
 ```
 
@@ -505,9 +454,12 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from x_ray_webhook import XRayWebhook
+from x_ray_webhook import XRayReceiver
 
-with XRayWebhook() as client:
+with XRayReceiver(
+    client_id="My Client ID",
+    client_secret="My Client Secret",
+) as client:
   # make requests here
   ...
 

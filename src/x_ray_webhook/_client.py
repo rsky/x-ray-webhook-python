@@ -13,7 +13,6 @@ from ._qs import Querystring
 from ._types import (
     NOT_GIVEN,
     Omit,
-    Headers,
     Timeout,
     NotGiven,
     Transport,
@@ -39,26 +38,28 @@ __all__ = [
     "Transport",
     "ProxiesTypes",
     "RequestOptions",
-    "XRayWebhook",
-    "AsyncXRayWebhook",
+    "XRayReceiver",
+    "AsyncXRayReceiver",
     "Client",
     "AsyncClient",
 ]
 
 
-class XRayWebhook(SyncAPIClient):
+class XRayReceiver(SyncAPIClient):
     api_data: api_data.APIDataResource
     cache: cache.CacheResource
-    with_raw_response: XRayWebhookWithRawResponse
-    with_streaming_response: XRayWebhookWithStreamedResponse
+    with_raw_response: XRayReceiverWithRawResponse
+    with_streaming_response: XRayReceiverWithStreamedResponse
 
     # client options
-    api_key: str | None
+    client_id: str
+    client_secret: str
 
     def __init__(
         self,
         *,
-        api_key: str | None = None,
+        client_id: str,
+        client_secret: str,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -78,18 +79,15 @@ class XRayWebhook(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous XRayWebhook client instance.
+        """Construct a new synchronous XRayReceiver client instance."""
+        self.client_id = client_id
 
-        This automatically infers the `api_key` argument from the `X_RAY_WEBHOOK_API_KEY` environment variable if it is not provided.
-        """
-        if api_key is None:
-            api_key = os.environ.get("X_RAY_WEBHOOK_API_KEY")
-        self.api_key = api_key
+        self.client_secret = client_secret
 
         if base_url is None:
-            base_url = os.environ.get("X_RAY_WEBHOOK_BASE_URL")
+            base_url = os.environ.get("X_RAY_RECEIVER_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.example.com"
+            base_url = f"http://localhost:8082/webhook"
 
         super().__init__(
             version=__version__,
@@ -104,8 +102,8 @@ class XRayWebhook(SyncAPIClient):
 
         self.api_data = api_data.APIDataResource(self)
         self.cache = cache.CacheResource(self)
-        self.with_raw_response = XRayWebhookWithRawResponse(self)
-        self.with_streaming_response = XRayWebhookWithStreamedResponse(self)
+        self.with_raw_response = XRayReceiverWithRawResponse(self)
+        self.with_streaming_response = XRayReceiverWithStreamedResponse(self)
 
     @property
     @override
@@ -114,36 +112,20 @@ class XRayWebhook(SyncAPIClient):
 
     @property
     @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        if api_key is None:
-            return {}
-        return {"Authorization": f"Bearer {api_key}"}
-
-    @property
-    @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
             **super().default_headers,
             "X-Stainless-Async": "false",
+            "Cf-Access-Client-Id": self.client_id,
+            "Cf-Access-Client-Secret": self.client_secret,
             **self._custom_headers,
         }
-
-    @override
-    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
-        if self.api_key and headers.get("Authorization"):
-            return
-        if isinstance(custom_headers.get("Authorization"), Omit):
-            return
-
-        raise TypeError(
-            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
-        )
 
     def copy(
         self,
         *,
-        api_key: str | None = None,
+        client_id: str | None = None,
+        client_secret: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.Client | None = None,
@@ -177,7 +159,8 @@ class XRayWebhook(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            api_key=api_key or self.api_key,
+            client_id=client_id or self.client_id,
+            client_secret=client_secret or self.client_secret,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -225,19 +208,21 @@ class XRayWebhook(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncXRayWebhook(AsyncAPIClient):
+class AsyncXRayReceiver(AsyncAPIClient):
     api_data: api_data.AsyncAPIDataResource
     cache: cache.AsyncCacheResource
-    with_raw_response: AsyncXRayWebhookWithRawResponse
-    with_streaming_response: AsyncXRayWebhookWithStreamedResponse
+    with_raw_response: AsyncXRayReceiverWithRawResponse
+    with_streaming_response: AsyncXRayReceiverWithStreamedResponse
 
     # client options
-    api_key: str | None
+    client_id: str
+    client_secret: str
 
     def __init__(
         self,
         *,
-        api_key: str | None = None,
+        client_id: str,
+        client_secret: str,
         base_url: str | httpx.URL | None = None,
         timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -257,18 +242,15 @@ class AsyncXRayWebhook(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async AsyncXRayWebhook client instance.
+        """Construct a new async AsyncXRayReceiver client instance."""
+        self.client_id = client_id
 
-        This automatically infers the `api_key` argument from the `X_RAY_WEBHOOK_API_KEY` environment variable if it is not provided.
-        """
-        if api_key is None:
-            api_key = os.environ.get("X_RAY_WEBHOOK_API_KEY")
-        self.api_key = api_key
+        self.client_secret = client_secret
 
         if base_url is None:
-            base_url = os.environ.get("X_RAY_WEBHOOK_BASE_URL")
+            base_url = os.environ.get("X_RAY_RECEIVER_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.example.com"
+            base_url = f"http://localhost:8082/webhook"
 
         super().__init__(
             version=__version__,
@@ -283,8 +265,8 @@ class AsyncXRayWebhook(AsyncAPIClient):
 
         self.api_data = api_data.AsyncAPIDataResource(self)
         self.cache = cache.AsyncCacheResource(self)
-        self.with_raw_response = AsyncXRayWebhookWithRawResponse(self)
-        self.with_streaming_response = AsyncXRayWebhookWithStreamedResponse(self)
+        self.with_raw_response = AsyncXRayReceiverWithRawResponse(self)
+        self.with_streaming_response = AsyncXRayReceiverWithStreamedResponse(self)
 
     @property
     @override
@@ -293,36 +275,20 @@ class AsyncXRayWebhook(AsyncAPIClient):
 
     @property
     @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        if api_key is None:
-            return {}
-        return {"Authorization": f"Bearer {api_key}"}
-
-    @property
-    @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
             **super().default_headers,
             "X-Stainless-Async": f"async:{get_async_library()}",
+            "Cf-Access-Client-Id": self.client_id,
+            "Cf-Access-Client-Secret": self.client_secret,
             **self._custom_headers,
         }
-
-    @override
-    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
-        if self.api_key and headers.get("Authorization"):
-            return
-        if isinstance(custom_headers.get("Authorization"), Omit):
-            return
-
-        raise TypeError(
-            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
-        )
 
     def copy(
         self,
         *,
-        api_key: str | None = None,
+        client_id: str | None = None,
+        client_secret: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = NOT_GIVEN,
         http_client: httpx.AsyncClient | None = None,
@@ -356,7 +322,8 @@ class AsyncXRayWebhook(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            api_key=api_key or self.api_key,
+            client_id=client_id or self.client_id,
+            client_secret=client_secret or self.client_secret,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -404,30 +371,30 @@ class AsyncXRayWebhook(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class XRayWebhookWithRawResponse:
-    def __init__(self, client: XRayWebhook) -> None:
+class XRayReceiverWithRawResponse:
+    def __init__(self, client: XRayReceiver) -> None:
         self.api_data = api_data.APIDataResourceWithRawResponse(client.api_data)
         self.cache = cache.CacheResourceWithRawResponse(client.cache)
 
 
-class AsyncXRayWebhookWithRawResponse:
-    def __init__(self, client: AsyncXRayWebhook) -> None:
+class AsyncXRayReceiverWithRawResponse:
+    def __init__(self, client: AsyncXRayReceiver) -> None:
         self.api_data = api_data.AsyncAPIDataResourceWithRawResponse(client.api_data)
         self.cache = cache.AsyncCacheResourceWithRawResponse(client.cache)
 
 
-class XRayWebhookWithStreamedResponse:
-    def __init__(self, client: XRayWebhook) -> None:
+class XRayReceiverWithStreamedResponse:
+    def __init__(self, client: XRayReceiver) -> None:
         self.api_data = api_data.APIDataResourceWithStreamingResponse(client.api_data)
         self.cache = cache.CacheResourceWithStreamingResponse(client.cache)
 
 
-class AsyncXRayWebhookWithStreamedResponse:
-    def __init__(self, client: AsyncXRayWebhook) -> None:
+class AsyncXRayReceiverWithStreamedResponse:
+    def __init__(self, client: AsyncXRayReceiver) -> None:
         self.api_data = api_data.AsyncAPIDataResourceWithStreamingResponse(client.api_data)
         self.cache = cache.AsyncCacheResourceWithStreamingResponse(client.cache)
 
 
-Client = XRayWebhook
+Client = XRayReceiver
 
-AsyncClient = AsyncXRayWebhook
+AsyncClient = AsyncXRayReceiver
