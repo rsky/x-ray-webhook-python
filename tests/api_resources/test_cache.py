@@ -8,7 +8,7 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from x_ray_webhook import XRayReceiver, AsyncXRayReceiver
+from x_ray_webhook import XRayWebhook, AsyncXRayWebhook
 from x_ray_webhook.types import CacheInvalidateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -19,7 +19,7 @@ class TestCache:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_invalidate(self, client: XRayReceiver) -> None:
+    def test_method_invalidate(self, client: XRayWebhook) -> None:
         cache = client.cache.invalidate(
             key="assets/ships/0001/full.webp",
         )
@@ -27,7 +27,7 @@ class TestCache:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_invalidate(self, client: XRayReceiver) -> None:
+    def test_raw_response_invalidate(self, client: XRayWebhook) -> None:
         response = client.cache.with_raw_response.invalidate(
             key="assets/ships/0001/full.webp",
         )
@@ -39,7 +39,7 @@ class TestCache:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_invalidate(self, client: XRayReceiver) -> None:
+    def test_streaming_response_invalidate(self, client: XRayWebhook) -> None:
         with client.cache.with_streaming_response.invalidate(
             key="assets/ships/0001/full.webp",
         ) as response:
@@ -57,7 +57,7 @@ class TestAsyncCache:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_invalidate(self, async_client: AsyncXRayReceiver) -> None:
+    async def test_method_invalidate(self, async_client: AsyncXRayWebhook) -> None:
         cache = await async_client.cache.invalidate(
             key="assets/ships/0001/full.webp",
         )
@@ -65,7 +65,7 @@ class TestAsyncCache:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_invalidate(self, async_client: AsyncXRayReceiver) -> None:
+    async def test_raw_response_invalidate(self, async_client: AsyncXRayWebhook) -> None:
         response = await async_client.cache.with_raw_response.invalidate(
             key="assets/ships/0001/full.webp",
         )
@@ -77,7 +77,7 @@ class TestAsyncCache:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_invalidate(self, async_client: AsyncXRayReceiver) -> None:
+    async def test_streaming_response_invalidate(self, async_client: AsyncXRayWebhook) -> None:
         async with async_client.cache.with_streaming_response.invalidate(
             key="assets/ships/0001/full.webp",
         ) as response:

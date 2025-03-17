@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Iterator, AsyncIterator
 import pytest
 from pytest_asyncio import is_async_test
 
-from x_ray_webhook import XRayReceiver, AsyncXRayReceiver
+from x_ray_webhook import XRayWebhook, AsyncXRayWebhook
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest
@@ -33,24 +33,24 @@ client_secret = "My Client Secret"
 
 
 @pytest.fixture(scope="session")
-def client(request: FixtureRequest) -> Iterator[XRayReceiver]:
+def client(request: FixtureRequest) -> Iterator[XRayWebhook]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with XRayReceiver(
+    with XRayWebhook(
         base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=strict
     ) as client:
         yield client
 
 
 @pytest.fixture(scope="session")
-async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncXRayReceiver]:
+async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncXRayWebhook]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    async with AsyncXRayReceiver(
+    async with AsyncXRayWebhook(
         base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=strict
     ) as client:
         yield client

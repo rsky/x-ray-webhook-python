@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class XRayReceiverError(Exception):
+class XRayWebhookError(Exception):
     pass
 
 
-class APIError(XRayReceiverError):
+class APIError(XRayWebhookError):
     message: str
     request: httpx.Request
 

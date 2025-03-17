@@ -8,13 +8,13 @@ from typing import TYPE_CHECKING
 import anyio
 
 if TYPE_CHECKING:
-    from ._client import XRayReceiver, AsyncXRayReceiver
+    from ._client import XRayWebhook, AsyncXRayWebhook
 
 
 class SyncAPIResource:
-    _client: XRayReceiver
+    _client: XRayWebhook
 
-    def __init__(self, client: XRayReceiver) -> None:
+    def __init__(self, client: XRayWebhook) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post
@@ -28,9 +28,9 @@ class SyncAPIResource:
 
 
 class AsyncAPIResource:
-    _client: AsyncXRayReceiver
+    _client: AsyncXRayWebhook
 
-    def __init__(self, client: AsyncXRayReceiver) -> None:
+    def __init__(self, client: AsyncXRayWebhook) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post
