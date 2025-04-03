@@ -35,7 +35,7 @@ class TestAPIData:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
         )
         assert_matches_type(APIDataSendResponse, api_data, path=["response"])
@@ -58,7 +58,7 @@ class TestAPIData:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
             log={
                 "bucket": "x-ray-log",
@@ -85,7 +85,7 @@ class TestAPIData:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
         )
 
@@ -112,7 +112,7 @@ class TestAPIData:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
         ) as response:
             assert not response.is_closed
@@ -145,7 +145,7 @@ class TestAsyncAPIData:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
         )
         assert_matches_type(APIDataSendResponse, api_data, path=["response"])
@@ -168,7 +168,7 @@ class TestAsyncAPIData:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
             log={
                 "bucket": "x-ray-log",
@@ -195,7 +195,7 @@ class TestAsyncAPIData:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
         )
 
@@ -222,7 +222,7 @@ class TestAsyncAPIData:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
         ) as response:
             assert not response.is_closed

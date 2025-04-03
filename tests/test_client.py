@@ -906,7 +906,7 @@ class TestXRayWebhook:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
         )
 
@@ -947,7 +947,7 @@ class TestXRayWebhook:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
             extra_headers={"x-stainless-retry-count": Omit()},
         )
@@ -988,7 +988,7 @@ class TestXRayWebhook:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
             extra_headers={"x-stainless-retry-count": "42"},
         )
@@ -1851,7 +1851,7 @@ class TestAsyncXRayWebhook:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
         )
 
@@ -1893,7 +1893,7 @@ class TestAsyncXRayWebhook:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
             extra_headers={"x-stainless-retry-count": Omit()},
         )
@@ -1935,7 +1935,7 @@ class TestAsyncXRayWebhook:
                     "member_id": "bar",
                     "nickname": "bar",
                 },
-                "timestamp": 1740262942,
+                "timestamp": 1740262942000,
             },
             extra_headers={"x-stainless-retry-count": "42"},
         )

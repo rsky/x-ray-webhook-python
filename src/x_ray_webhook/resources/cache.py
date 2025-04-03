@@ -48,6 +48,7 @@ class CacheResource(SyncAPIResource):
         self,
         *,
         key: str,
+        timestamp: float,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -61,6 +62,8 @@ class CacheResource(SyncAPIResource):
         Args:
           key: Resource key to invalidate
 
+          timestamp: The UNIX timestamp (in milliseconds) when the new resource was received.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -71,7 +74,13 @@ class CacheResource(SyncAPIResource):
         """
         return self._post(
             "/cache/invalidate",
-            body=maybe_transform({"key": key}, cache_invalidate_params.CacheInvalidateParams),
+            body=maybe_transform(
+                {
+                    "key": key,
+                    "timestamp": timestamp,
+                },
+                cache_invalidate_params.CacheInvalidateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -103,6 +112,7 @@ class AsyncCacheResource(AsyncAPIResource):
         self,
         *,
         key: str,
+        timestamp: float,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -116,6 +126,8 @@ class AsyncCacheResource(AsyncAPIResource):
         Args:
           key: Resource key to invalidate
 
+          timestamp: The UNIX timestamp (in milliseconds) when the new resource was received.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -126,7 +138,13 @@ class AsyncCacheResource(AsyncAPIResource):
         """
         return await self._post(
             "/cache/invalidate",
-            body=await async_maybe_transform({"key": key}, cache_invalidate_params.CacheInvalidateParams),
+            body=await async_maybe_transform(
+                {
+                    "key": key,
+                    "timestamp": timestamp,
+                },
+                cache_invalidate_params.CacheInvalidateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

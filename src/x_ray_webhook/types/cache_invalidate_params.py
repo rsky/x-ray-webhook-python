@@ -10,3 +10,6 @@ __all__ = ["CacheInvalidateParams"]
 class CacheInvalidateParams(TypedDict, total=False):
     key: Required[str]
     """Resource key to invalidate"""
+
+    timestamp: Required[float]
+    """The UNIX timestamp (in milliseconds) when the new resource was received."""
