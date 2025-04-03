@@ -22,6 +22,7 @@ class TestCache:
     def test_method_invalidate(self, client: XRayWebhook) -> None:
         cache = client.cache.invalidate(
             key="assets/ships/0001/full.webp",
+            timestamp=1740262942000,
         )
         assert_matches_type(CacheInvalidateResponse, cache, path=["response"])
 
@@ -30,6 +31,7 @@ class TestCache:
     def test_raw_response_invalidate(self, client: XRayWebhook) -> None:
         response = client.cache.with_raw_response.invalidate(
             key="assets/ships/0001/full.webp",
+            timestamp=1740262942000,
         )
 
         assert response.is_closed is True
@@ -42,6 +44,7 @@ class TestCache:
     def test_streaming_response_invalidate(self, client: XRayWebhook) -> None:
         with client.cache.with_streaming_response.invalidate(
             key="assets/ships/0001/full.webp",
+            timestamp=1740262942000,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -60,6 +63,7 @@ class TestAsyncCache:
     async def test_method_invalidate(self, async_client: AsyncXRayWebhook) -> None:
         cache = await async_client.cache.invalidate(
             key="assets/ships/0001/full.webp",
+            timestamp=1740262942000,
         )
         assert_matches_type(CacheInvalidateResponse, cache, path=["response"])
 
@@ -68,6 +72,7 @@ class TestAsyncCache:
     async def test_raw_response_invalidate(self, async_client: AsyncXRayWebhook) -> None:
         response = await async_client.cache.with_raw_response.invalidate(
             key="assets/ships/0001/full.webp",
+            timestamp=1740262942000,
         )
 
         assert response.is_closed is True
@@ -80,6 +85,7 @@ class TestAsyncCache:
     async def test_streaming_response_invalidate(self, async_client: AsyncXRayWebhook) -> None:
         async with async_client.cache.with_streaming_response.invalidate(
             key="assets/ships/0001/full.webp",
+            timestamp=1740262942000,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

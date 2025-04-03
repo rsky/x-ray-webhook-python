@@ -36,6 +36,7 @@ client = XRayWebhook(
 
 response = client.cache.invalidate(
     key="assets/ships/0001/full.webp",
+    timestamp=1740262942000,
 )
 print(response.result)
 ```
@@ -57,6 +58,7 @@ client = AsyncXRayWebhook(
 async def main() -> None:
     response = await client.cache.invalidate(
         key="assets/ships/0001/full.webp",
+        timestamp=1740262942000,
     )
     print(response.result)
 
@@ -102,7 +104,7 @@ response = client.api_data.send(
             "member_id": "bar",
             "nickname": "bar",
         },
-        "timestamp": 1740262942,
+        "timestamp": 1740262942000,
     },
 )
 print(response.request)
