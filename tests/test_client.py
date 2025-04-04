@@ -1954,7 +1954,7 @@ class TestAsyncXRayWebhook:
         import threading
 
         from x_ray_webhook._utils import asyncify
-        from x_ray_webhook._base_client import get_platform 
+        from x_ray_webhook._base_client import get_platform
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()
