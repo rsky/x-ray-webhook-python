@@ -23,7 +23,7 @@ class Request(TypedDict, total=False):
     method: Required[Literal["GET", "POST"]]
     """Request method"""
 
-    parameters: Required[Dict[str, Optional[object]]]
+    parameters: Required[Dict[str, str]]
     """Request parameters"""
 
     url: Required[str]
