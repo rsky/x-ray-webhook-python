@@ -92,7 +92,7 @@ client = XRayWebhook(
 response = client.api_data.send(
     member_id=123456789,
     request={
-        "method": "GET",
+        "method": "POST",
         "parameters": {
             "key1": "value1",
             "key2": "value2",

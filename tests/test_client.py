@@ -894,7 +894,7 @@ class TestXRayWebhook:
         response = client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
-                "method": "GET",
+                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
@@ -935,7 +935,7 @@ class TestXRayWebhook:
         response = client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
-                "method": "GET",
+                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
@@ -976,7 +976,7 @@ class TestXRayWebhook:
         response = client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
-                "method": "GET",
+                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
@@ -1839,7 +1839,7 @@ class TestAsyncXRayWebhook:
         response = await client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
-                "method": "GET",
+                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
@@ -1881,7 +1881,7 @@ class TestAsyncXRayWebhook:
         response = await client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
-                "method": "GET",
+                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
@@ -1923,7 +1923,7 @@ class TestAsyncXRayWebhook:
         response = await client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
-                "method": "GET",
+                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
