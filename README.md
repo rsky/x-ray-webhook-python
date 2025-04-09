@@ -94,8 +94,8 @@ response = client.api_data.send(
     request={
         "method": "GET",
         "parameters": {
-            "key1": "bar",
-            "key2": "bar",
+            "key1": "value1",
+            "key2": "value2",
         },
         "url": "http://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
     },
