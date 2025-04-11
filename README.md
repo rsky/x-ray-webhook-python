@@ -20,7 +20,7 @@ pip install git+ssh://git@github.com/rsky/x-ray-webhook-python.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainless.com/docs/guides/publish), this will become: `pip install --pre x_ray_webhook`
+> Once this package is [published to PyPI](https://app.stainless.com/docs/guides/publish), this will become: `pip install x_ray_webhook`
 
 ## Usage
 
