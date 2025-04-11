@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Required, TypedDict
 
 __all__ = ["APIDataSendParams", "Request", "Response", "Log"]
 
@@ -20,9 +20,6 @@ class APIDataSendParams(TypedDict, total=False):
 
 
 class Request(TypedDict, total=False):
-    method: Required[Literal["GET", "POST"]]
-    """Request method"""
-
     parameters: Required[Dict[str, str]]
     """Request parameters"""
 

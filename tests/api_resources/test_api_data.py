@@ -23,7 +23,6 @@ class TestAPIData:
         api_data = client.api_data.send(
             member_id=123456789,
             request={
-                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
@@ -46,7 +45,6 @@ class TestAPIData:
         api_data = client.api_data.send(
             member_id=123456789,
             request={
-                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
@@ -73,7 +71,6 @@ class TestAPIData:
         response = client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
-                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
@@ -100,7 +97,6 @@ class TestAPIData:
         with client.api_data.with_streaming_response.send(
             member_id=123456789,
             request={
-                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
@@ -133,7 +129,6 @@ class TestAsyncAPIData:
         api_data = await async_client.api_data.send(
             member_id=123456789,
             request={
-                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
@@ -156,7 +151,6 @@ class TestAsyncAPIData:
         api_data = await async_client.api_data.send(
             member_id=123456789,
             request={
-                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
@@ -183,7 +177,6 @@ class TestAsyncAPIData:
         response = await async_client.api_data.with_raw_response.send(
             member_id=123456789,
             request={
-                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
@@ -210,7 +203,6 @@ class TestAsyncAPIData:
         async with async_client.api_data.with_streaming_response.send(
             member_id=123456789,
             request={
-                "method": "POST",
                 "parameters": {
                     "key1": "value1",
                     "key2": "value2",
