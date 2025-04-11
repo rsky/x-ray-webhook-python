@@ -10,7 +10,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [github.com](https://github.com/rsky/x-ray). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [github.com](https://github.com/rsky/x-ray-webhook-python). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
