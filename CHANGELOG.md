@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.0 (2025-04-11)
+
+Full Changelog: [v0.1.0-alpha.1...v0.9.0](https://github.com/rsky/x-ray-webhook-python/compare/v0.1.0-alpha.1...v0.9.0)
+
+### Features
+
+* **api:** update via SDK Studio ([8f894e4](https://github.com/rsky/x-ray-webhook-python/commit/8f894e41c9cc3cedd3e77102517eb934284465ef))
+
 ## 0.1.0-alpha.1 (2025-04-11)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/rsky/x-ray-webhook-python/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
