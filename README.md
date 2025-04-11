@@ -15,8 +15,8 @@ The REST API documentation can be found on [github.com](https://github.com/rsky/
 ## Installation
 
 ```sh
-# install from this staging repo
-pip install git+ssh://git@github.com/stainless-sdks/x-ray-webhook-python.git
+# install from the production repo
+pip install git+ssh://git@github.com/rsky/x-ray-webhook-python.git
 ```
 
 > [!NOTE]
@@ -331,9 +331,9 @@ api_data = response.parse()  # get the object that `api_data.send()` would have 
 print(api_data.result)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/x-ray-webhook-python/tree/main/src/x_ray_webhook/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/rsky/x-ray-webhook-python/tree/main/src/x_ray_webhook/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/x-ray-webhook-python/tree/main/src/x_ray_webhook/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/rsky/x-ray-webhook-python/tree/main/src/x_ray_webhook/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -462,7 +462,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/x-ray-webhook-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/rsky/x-ray-webhook-python/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 
