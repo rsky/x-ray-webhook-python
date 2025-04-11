@@ -92,7 +92,6 @@ client = XRayWebhook(
 response = client.api_data.send(
     member_id=123456789,
     request={
-        "method": "POST",
         "parameters": {
             "key1": "value1",
             "key2": "value2",
@@ -133,7 +132,6 @@ try:
         member_id=123456789,
         request={
             "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
-            "method": "POST",
             "parameters": {
                 "key1": "value1",
                 "key2": "value2",
@@ -199,7 +197,6 @@ client.with_options(max_retries=5).api_data.send(
     member_id=123456789,
     request={
         "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
-        "method": "POST",
         "parameters": {
             "key1": "value1",
             "key2": "value2",
@@ -247,7 +244,6 @@ client.with_options(timeout=5.0).api_data.send(
     member_id=123456789,
     request={
         "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
-        "method": "POST",
         "parameters": {
             "key1": "value1",
             "key2": "value2",
@@ -312,7 +308,6 @@ response = client.api_data.with_raw_response.send(
     member_id=123456789,
     request={
         "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
-        "method": "POST",
         "parameters": {
             "key1": "value1",
             "key2": "value2",
@@ -351,7 +346,6 @@ with client.api_data.with_streaming_response.send(
     member_id=123456789,
     request={
         "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
-        "method": "POST",
         "parameters": {
             "key1": "value1",
             "key2": "value2",
