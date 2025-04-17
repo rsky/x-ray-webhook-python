@@ -186,10 +186,10 @@ from x_ray_webhook import XRayWebhook
 
 # Configure the default for all requests:
 client = XRayWebhook(
-    # default is 2
-    max_retries=0,
     client_id="My Client ID",
     client_secret="My Client Secret",
+    # default is 2
+    max_retries=0,
 )
 
 # Or, configure per-request:
@@ -226,17 +226,17 @@ from x_ray_webhook import XRayWebhook
 
 # Configure the default for all requests:
 client = XRayWebhook(
-    # 20 seconds (default is 1 minute)
-    timeout=20.0,
     client_id="My Client ID",
     client_secret="My Client Secret",
+    # 20 seconds (default is 1 minute)
+    timeout=20.0,
 )
 
 # More granular control:
 client = XRayWebhook(
-    timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
     client_id="My Client ID",
     client_secret="My Client Secret",
+    timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
 # Override per-request:
@@ -418,14 +418,14 @@ import httpx
 from x_ray_webhook import XRayWebhook, DefaultHttpxClient
 
 client = XRayWebhook(
+    client_id="My Client ID",
+    client_secret="My Client Secret",
     # Or use the `X_RAY_WEBHOOK_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
-    client_id="My Client ID",
-    client_secret="My Client Secret",
 )
 ```
 
