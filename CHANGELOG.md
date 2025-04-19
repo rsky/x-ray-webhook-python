@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.9.1 (2025-04-19)
+
+Full Changelog: [v0.9.0...v0.9.1](https://github.com/rsky/x-ray-webhook-python/compare/v0.9.0...v0.9.1)
+
+### Bug Fixes
+
+* **perf:** optimize some hot paths ([a73e9eb](https://github.com/rsky/x-ray-webhook-python/commit/a73e9ebc14898c6de937530a1083dbff6bb68452))
+* **perf:** skip traversing types for NotGiven values ([39a5f6b](https://github.com/rsky/x-ray-webhook-python/commit/39a5f6bd8615d0db29d0ae571e1bf8f5cb538c74))
+
+
+### Chores
+
+* **client:** minor internal fixes ([a190677](https://github.com/rsky/x-ray-webhook-python/commit/a190677e809444eb05f4859d6aeb45f2f14ac969))
+* **internal:** base client updates ([99ac40a](https://github.com/rsky/x-ray-webhook-python/commit/99ac40a87ed8d88e980486b68b02f22d14e5452b))
+* **internal:** bump pyright version ([6d18cba](https://github.com/rsky/x-ray-webhook-python/commit/6d18cba29aa220fa046ee96bc00ee8f6a507313a))
+* **internal:** codegen related update ([12aa295](https://github.com/rsky/x-ray-webhook-python/commit/12aa295c089fe829df2360bf810e896c5b49263b))
+* **internal:** update models test ([2aec093](https://github.com/rsky/x-ray-webhook-python/commit/2aec09363eda87876f7b5dd08014f14518462c20))
+* **internal:** update pyright settings ([2738a01](https://github.com/rsky/x-ray-webhook-python/commit/2738a01bdce410ae92ede118eb1b325cacee57bc))
+* **internal:** version bump ([37188ac](https://github.com/rsky/x-ray-webhook-python/commit/37188ac318bcfcdb860aa7ebd862e3545c30ff1f))
+
 ## 0.9.0 (2025-04-11)
 
 Full Changelog: [v0.1.0-alpha.1...v0.9.0](https://github.com/rsky/x-ray-webhook-python/compare/v0.1.0-alpha.1...v0.9.0)
