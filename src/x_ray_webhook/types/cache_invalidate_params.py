@@ -11,5 +11,5 @@ class CacheInvalidateParams(TypedDict, total=False):
     key: Required[str]
     """Resource key to invalidate"""
 
-    timestamp: Required[float]
+    timestamp: Required[int]
     """The UNIX timestamp (in milliseconds) when the new resource was received."""
