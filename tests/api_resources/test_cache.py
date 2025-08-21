@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestCache:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_invalidate(self, client: XRayWebhook) -> None:
         cache = client.cache.invalidate(
@@ -26,7 +26,7 @@ class TestCache:
         )
         assert_matches_type(CacheInvalidateResponse, cache, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_invalidate(self, client: XRayWebhook) -> None:
         response = client.cache.with_raw_response.invalidate(
@@ -39,7 +39,7 @@ class TestCache:
         cache = response.parse()
         assert_matches_type(CacheInvalidateResponse, cache, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_invalidate(self, client: XRayWebhook) -> None:
         with client.cache.with_streaming_response.invalidate(
@@ -56,9 +56,11 @@ class TestCache:
 
 
 class TestAsyncCache:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_invalidate(self, async_client: AsyncXRayWebhook) -> None:
         cache = await async_client.cache.invalidate(
@@ -67,7 +69,7 @@ class TestAsyncCache:
         )
         assert_matches_type(CacheInvalidateResponse, cache, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_invalidate(self, async_client: AsyncXRayWebhook) -> None:
         response = await async_client.cache.with_raw_response.invalidate(
@@ -80,7 +82,7 @@ class TestAsyncCache:
         cache = await response.parse()
         assert_matches_type(CacheInvalidateResponse, cache, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_invalidate(self, async_client: AsyncXRayWebhook) -> None:
         async with async_client.cache.with_streaming_response.invalidate(

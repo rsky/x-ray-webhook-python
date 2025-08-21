@@ -44,7 +44,7 @@ class APIDataResource(SyncAPIResource):
     def send(
         self,
         *,
-        member_id: float,
+        member_id: int,
         request: api_data_send_params.Request,
         response: api_data_send_params.Response,
         log: api_data_send_params.Log | NotGiven = NOT_GIVEN,
@@ -110,7 +110,7 @@ class AsyncAPIDataResource(AsyncAPIResource):
     async def send(
         self,
         *,
-        member_id: float,
+        member_id: int,
         request: api_data_send_params.Request,
         response: api_data_send_params.Response,
         log: api_data_send_params.Log | NotGiven = NOT_GIVEN,

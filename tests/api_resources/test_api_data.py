@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestAPIData:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_send(self, client: XRayWebhook) -> None:
         api_data = client.api_data.send(
@@ -39,7 +39,7 @@ class TestAPIData:
         )
         assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_send_with_all_params(self, client: XRayWebhook) -> None:
         api_data = client.api_data.send(
@@ -65,7 +65,7 @@ class TestAPIData:
         )
         assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_send(self, client: XRayWebhook) -> None:
         response = client.api_data.with_raw_response.send(
@@ -91,7 +91,7 @@ class TestAPIData:
         api_data = response.parse()
         assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_send(self, client: XRayWebhook) -> None:
         with client.api_data.with_streaming_response.send(
@@ -121,9 +121,11 @@ class TestAPIData:
 
 
 class TestAsyncAPIData:
-    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_send(self, async_client: AsyncXRayWebhook) -> None:
         api_data = await async_client.api_data.send(
@@ -145,7 +147,7 @@ class TestAsyncAPIData:
         )
         assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_send_with_all_params(self, async_client: AsyncXRayWebhook) -> None:
         api_data = await async_client.api_data.send(
@@ -171,7 +173,7 @@ class TestAsyncAPIData:
         )
         assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_send(self, async_client: AsyncXRayWebhook) -> None:
         response = await async_client.api_data.with_raw_response.send(
@@ -197,7 +199,7 @@ class TestAsyncAPIData:
         api_data = await response.parse()
         assert_matches_type(APIDataSendResponse, api_data, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_send(self, async_client: AsyncXRayWebhook) -> None:
         async with async_client.api_data.with_streaming_response.send(
