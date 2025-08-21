@@ -9,7 +9,7 @@ __all__ = ["APIDataSendParams", "Request", "Response", "Log"]
 
 
 class APIDataSendParams(TypedDict, total=False):
-    member_id: Required[float]
+    member_id: Required[int]
     """Member ID"""
 
     request: Required[Request]
@@ -31,7 +31,7 @@ class Response(TypedDict, total=False):
     data: Required[Union[Dict[str, Optional[object]], Iterable[Dict[str, Optional[object]]], None]]
     """api_data"""
 
-    timestamp: Required[float]
+    timestamp: Required[int]
     """The UNIX timestamp (in milliseconds) when the response was received."""
 
 

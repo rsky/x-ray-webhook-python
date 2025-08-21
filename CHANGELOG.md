@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.9.1 (2025-08-21)
+
+Full Changelog: [v0.9.0...v0.9.1](https://github.com/rsky/x-ray-webhook-python/compare/v0.9.0...v0.9.1)
+
+### Features
+
+* **api:** update via SDK Studio ([b3044e2](https://github.com/rsky/x-ray-webhook-python/commit/b3044e24f1feda909d0930a261ab36b8085972d8))
+* **client:** add follow_redirects request option ([078796c](https://github.com/rsky/x-ray-webhook-python/commit/078796c9280d60feaaffda5844aaa3c1d24b0b55))
+
+
+### Bug Fixes
+
+* **package:** support direct resource imports ([321d7db](https://github.com/rsky/x-ray-webhook-python/commit/321d7dbd4a3b24385b6a6736bcbe8e2df844f857))
+* **perf:** optimize some hot paths ([a73e9eb](https://github.com/rsky/x-ray-webhook-python/commit/a73e9ebc14898c6de937530a1083dbff6bb68452))
+* **perf:** skip traversing types for NotGiven values ([39a5f6b](https://github.com/rsky/x-ray-webhook-python/commit/39a5f6bd8615d0db29d0ae571e1bf8f5cb538c74))
+* **pydantic v1:** more robust ModelField.annotation check ([d6c8b1b](https://github.com/rsky/x-ray-webhook-python/commit/d6c8b1b93cd75c002e1ca6139c7bb4d3cd48a83b))
+
+
+### Chores
+
+* broadly detect json family of content-type headers ([50138d9](https://github.com/rsky/x-ray-webhook-python/commit/50138d95e88a8f3ca873fd8809ffd44e159355fa))
+* **ci:** add timeout thresholds for CI jobs ([cfa9e54](https://github.com/rsky/x-ray-webhook-python/commit/cfa9e5422a7f6c7f270c7ea360b2bf42d0c36af7))
+* **ci:** fix installation instructions ([d77adec](https://github.com/rsky/x-ray-webhook-python/commit/d77adecda9578814a036acf4f7b4005c5db0ec59))
+* **ci:** only use depot for staging repos ([ff6c5c9](https://github.com/rsky/x-ray-webhook-python/commit/ff6c5c9e66477bb7e62441e695f00897f5e0cb34))
+* **ci:** upload sdks to package manager ([67d973b](https://github.com/rsky/x-ray-webhook-python/commit/67d973bbbe00bb435b97eedd4bd791d613563fc5))
+* **client:** minor internal fixes ([a190677](https://github.com/rsky/x-ray-webhook-python/commit/a190677e809444eb05f4859d6aeb45f2f14ac969))
+* **docs:** grammar improvements ([9292e0f](https://github.com/rsky/x-ray-webhook-python/commit/9292e0f6fae99def2ff0a875e2bc0fe9d1d0f432))
+* **docs:** remove reference to rye shell ([d60d774](https://github.com/rsky/x-ray-webhook-python/commit/d60d774d7d66d0f5c5302a313f34a78b3666b19d))
+* **internal:** avoid errors for isinstance checks on proxies ([83682fc](https://github.com/rsky/x-ray-webhook-python/commit/83682fc7daac02b940359ebed5d3f2301dfde83a))
+* **internal:** base client updates ([99ac40a](https://github.com/rsky/x-ray-webhook-python/commit/99ac40a87ed8d88e980486b68b02f22d14e5452b))
+* **internal:** bump pyright version ([6d18cba](https://github.com/rsky/x-ray-webhook-python/commit/6d18cba29aa220fa046ee96bc00ee8f6a507313a))
+* **internal:** codegen related update ([87ce424](https://github.com/rsky/x-ray-webhook-python/commit/87ce42475bffe0c088d8dd90434a561817f527ff))
+* **internal:** codegen related update ([12aa295](https://github.com/rsky/x-ray-webhook-python/commit/12aa295c089fe829df2360bf810e896c5b49263b))
+* **internal:** fix list file params ([8e384f1](https://github.com/rsky/x-ray-webhook-python/commit/8e384f1e9abc44a5e1cfa93af6e6753f796285d3))
+* **internal:** import reformatting ([d6dff3d](https://github.com/rsky/x-ray-webhook-python/commit/d6dff3df219ee222f6fab3a226886bd383bcc6d7))
+* **internal:** minor formatting changes ([3080a59](https://github.com/rsky/x-ray-webhook-python/commit/3080a5913f6788a9e167a9df27c1845b0ab3b4a4))
+* **internal:** refactor retries to not use recursion ([ce33553](https://github.com/rsky/x-ray-webhook-python/commit/ce3355381e19a8639470df9c84c89b2d5f4ddb6b))
+* **internal:** update models test ([2aec093](https://github.com/rsky/x-ray-webhook-python/commit/2aec09363eda87876f7b5dd08014f14518462c20))
+* **internal:** update pyright settings ([2738a01](https://github.com/rsky/x-ray-webhook-python/commit/2738a01bdce410ae92ede118eb1b325cacee57bc))
+* **internal:** version bump ([37188ac](https://github.com/rsky/x-ray-webhook-python/commit/37188ac318bcfcdb860aa7ebd862e3545c30ff1f))
+
 ## 0.9.0 (2025-04-11)
 
 Full Changelog: [v0.1.0-alpha.1...v0.9.0](https://github.com/rsky/x-ray-webhook-python/compare/v0.1.0-alpha.1...v0.9.0)

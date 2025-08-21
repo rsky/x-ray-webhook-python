@@ -6,10 +6,7 @@ import httpx
 
 from ..types import api_data_send_params
 from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from .._utils import (
-    maybe_transform,
-    async_maybe_transform,
-)
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -47,7 +44,7 @@ class APIDataResource(SyncAPIResource):
     def send(
         self,
         *,
-        member_id: float,
+        member_id: int,
         request: api_data_send_params.Request,
         response: api_data_send_params.Response,
         log: api_data_send_params.Log | NotGiven = NOT_GIVEN,
@@ -113,7 +110,7 @@ class AsyncAPIDataResource(AsyncAPIResource):
     async def send(
         self,
         *,
-        member_id: float,
+        member_id: int,
         request: api_data_send_params.Request,
         response: api_data_send_params.Response,
         log: api_data_send_params.Log | NotGiven = NOT_GIVEN,
