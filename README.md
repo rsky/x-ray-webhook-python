@@ -35,22 +35,9 @@ client = XRayWebhook(
     client_secret="My Client Secret",
 )
 
-response = client.api_data.send(
-    member_id=1,
-    request={
-        "parameters": {
-            "key1": "value1",
-            "key2": "value2",
-        },
-        "url": "https://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
-    },
-    response={
-        "data": {
-            "member_id": "bar",
-            "nickname": "bar",
-        },
-        "timestamp": 1740262942000,
-    },
+response = client.cache.invalidate(
+    key="assets/ships/0001/full.webp",
+    timestamp=1740262942000,
 )
 print(response.result)
 ```
@@ -70,22 +57,9 @@ client = AsyncXRayWebhook(
 
 
 async def main() -> None:
-    response = await client.api_data.send(
-        member_id=1,
-        request={
-            "parameters": {
-                "key1": "value1",
-                "key2": "value2",
-            },
-            "url": "https://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
-        },
-        response={
-            "data": {
-                "member_id": "bar",
-                "nickname": "bar",
-            },
-            "timestamp": 1740262942000,
-        },
+    response = await client.cache.invalidate(
+        key="assets/ships/0001/full.webp",
+        timestamp=1740262942000,
     )
     print(response.result)
 
@@ -120,22 +94,9 @@ async def main() -> None:
         client_secret="My Client Secret",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        response = await client.api_data.send(
-            member_id=1,
-            request={
-                "parameters": {
-                    "key1": "value1",
-                    "key2": "value2",
-                },
-                "url": "https://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
-            },
-            response={
-                "data": {
-                    "member_id": "bar",
-                    "nickname": "bar",
-                },
-                "timestamp": 1740262942000,
-            },
+        response = await client.cache.invalidate(
+            key="assets/ships/0001/full.webp",
+            timestamp=1740262942000,
         )
         print(response.result)
 
@@ -204,7 +165,7 @@ client = XRayWebhook(
 
 try:
     client.api_data.send(
-        member_id=1,
+        member_id=123456789,
         request={
             "parameters": {
                 "key1": "value1",
@@ -265,7 +226,7 @@ client = XRayWebhook(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).api_data.send(
-    member_id=1,
+    member_id=123456789,
     request={
         "parameters": {
             "key1": "value1",
@@ -308,7 +269,7 @@ client = XRayWebhook(
 
 # Override per-request:
 client.with_options(timeout=5.0).api_data.send(
-    member_id=1,
+    member_id=123456789,
     request={
         "parameters": {
             "key1": "value1",
@@ -368,7 +329,7 @@ client = XRayWebhook(
     client_secret="My Client Secret",
 )
 response = client.api_data.with_raw_response.send(
-    member_id=1,
+    member_id=123456789,
     request={
         "parameters": {
             "key1": "value1",
@@ -402,7 +363,7 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.api_data.with_streaming_response.send(
-    member_id=1,
+    member_id=123456789,
     request={
         "parameters": {
             "key1": "value1",
