@@ -16,6 +16,14 @@ from .api_data import (
     APIDataResourceWithStreamingResponse,
     AsyncAPIDataResourceWithStreamingResponse,
 )
+from .member_info import (
+    MemberInfoResource,
+    AsyncMemberInfoResource,
+    MemberInfoResourceWithRawResponse,
+    AsyncMemberInfoResourceWithRawResponse,
+    MemberInfoResourceWithStreamingResponse,
+    AsyncMemberInfoResourceWithStreamingResponse,
+)
 
 __all__ = [
     "APIDataResource",
@@ -30,4 +38,10 @@ __all__ = [
     "AsyncCacheResourceWithRawResponse",
     "CacheResourceWithStreamingResponse",
     "AsyncCacheResourceWithStreamingResponse",
+    "MemberInfoResource",
+    "AsyncMemberInfoResource",
+    "MemberInfoResourceWithRawResponse",
+    "AsyncMemberInfoResourceWithRawResponse",
+    "MemberInfoResourceWithStreamingResponse",
+    "AsyncMemberInfoResourceWithStreamingResponse",
 ]
