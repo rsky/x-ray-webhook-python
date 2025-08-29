@@ -175,8 +175,8 @@ try:
         },
         response={
             "data": {
-                "member_id": "bar",
-                "nickname": "bar",
+                "member_id": 123456789,
+                "nickname": "Adminal 56",
             },
             "timestamp": 1740262942000,
         },
@@ -236,8 +236,8 @@ client.with_options(max_retries=5).api_data.send(
     },
     response={
         "data": {
-            "member_id": "bar",
-            "nickname": "bar",
+            "member_id": 123456789,
+            "nickname": "Adminal 56",
         },
         "timestamp": 1740262942000,
     },
@@ -279,8 +279,8 @@ client.with_options(timeout=5.0).api_data.send(
     },
     response={
         "data": {
-            "member_id": "bar",
-            "nickname": "bar",
+            "member_id": 123456789,
+            "nickname": "Adminal 56",
         },
         "timestamp": 1740262942000,
     },
@@ -339,8 +339,8 @@ response = client.api_data.with_raw_response.send(
     },
     response={
         "data": {
-            "member_id": "bar",
-            "nickname": "bar",
+            "member_id": 123456789,
+            "nickname": "Adminal 56",
         },
         "timestamp": 1740262942000,
     },
@@ -373,8 +373,8 @@ with client.api_data.with_streaming_response.send(
     },
     response={
         "data": {
-            "member_id": "bar",
-            "nickname": "bar",
+            "member_id": 123456789,
+            "nickname": "Adminal 56",
         },
         "timestamp": 1740262942000,
     },
