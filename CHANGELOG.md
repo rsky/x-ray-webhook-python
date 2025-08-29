@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.10.0 (2025-08-29)
+
+Full Changelog: [v0.9.1...v0.10.0](https://github.com/rsky/x-ray-webhook-python/compare/v0.9.1...v0.10.0)
+
+### Features
+
+* **api:** update via SDK Studio ([36790bf](https://github.com/rsky/x-ray-webhook-python/commit/36790bf3543a83bdecd188a0041f8d4bac023ae7))
+* **api:** update via SDK Studio ([6a7c279](https://github.com/rsky/x-ray-webhook-python/commit/6a7c279609077da4af1200da4ffe9c5027154222))
+* **api:** update via SDK Studio ([916e06f](https://github.com/rsky/x-ray-webhook-python/commit/916e06f039cef726567ea31f2312b2545abb86a7))
+* **api:** update via SDK Studio ([bbf7cca](https://github.com/rsky/x-ray-webhook-python/commit/bbf7cca5919c37c28b46e50ff652b45735521063))
+* **api:** update via SDK Studio ([96806b9](https://github.com/rsky/x-ray-webhook-python/commit/96806b9102d7ef26db5fa00919d32e929adfbe74))
+
+
+### Bug Fixes
+
+* avoid newer type syntax ([da1f68b](https://github.com/rsky/x-ray-webhook-python/commit/da1f68b3a8230a97ab4986fb273c943602f4224b))
+
+
+### Chores
+
+* **internal:** change ci workflow machines ([9b51692](https://github.com/rsky/x-ray-webhook-python/commit/9b51692a72360907e06d0e4564aa60d52e099069))
+* **internal:** update pyright exclude list ([e1aedb9](https://github.com/rsky/x-ray-webhook-python/commit/e1aedb96a55051d1053af48304caa7a4e3818ae2))
+
 ## 0.9.1 (2025-08-21)
 
 Full Changelog: [v0.9.0...v0.9.1](https://github.com/rsky/x-ray-webhook-python/compare/v0.9.0...v0.9.1)
