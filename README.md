@@ -180,6 +180,10 @@ try:
             },
             "timestamp": 1740262942000,
         },
+        log={
+            "bucket": "x-ray-log",
+            "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+        },
     )
 except x_ray_webhook.APIConnectionError as e:
     print("The server could not be reached")
@@ -241,6 +245,10 @@ client.with_options(max_retries=5).api_data.send(
         },
         "timestamp": 1740262942000,
     },
+    log={
+        "bucket": "x-ray-log",
+        "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+    },
 )
 ```
 
@@ -283,6 +291,10 @@ client.with_options(timeout=5.0).api_data.send(
             "nickname": "Adminal 56",
         },
         "timestamp": 1740262942000,
+    },
+    log={
+        "bucket": "x-ray-log",
+        "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
     },
 )
 ```
@@ -344,6 +356,10 @@ response = client.api_data.with_raw_response.send(
         },
         "timestamp": 1740262942000,
     },
+    log={
+        "bucket": "x-ray-log",
+        "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+    },
 )
 print(response.headers.get('X-My-Header'))
 
@@ -377,6 +393,10 @@ with client.api_data.with_streaming_response.send(
             "nickname": "Adminal 56",
         },
         "timestamp": 1740262942000,
+    },
+    log={
+        "bucket": "x-ray-log",
+        "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
     },
 ) as response:
     print(response.headers.get("X-My-Header"))
