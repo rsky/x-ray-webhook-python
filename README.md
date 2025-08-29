@@ -35,9 +35,22 @@ client = XRayWebhook(
     client_secret="My Client Secret",
 )
 
-response = client.cache.invalidate(
-    key="assets/ships/0001/full.webp",
-    timestamp=1740262942000,
+response = client.api_data.send(
+    member_id=1,
+    request={
+        "parameters": {
+            "key1": "value1",
+            "key2": "value2",
+        },
+        "url": "https://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
+    },
+    response={
+        "data": {
+            "member_id": "bar",
+            "nickname": "bar",
+        },
+        "timestamp": 1740262942000,
+    },
 )
 print(response.result)
 ```
@@ -57,9 +70,22 @@ client = AsyncXRayWebhook(
 
 
 async def main() -> None:
-    response = await client.cache.invalidate(
-        key="assets/ships/0001/full.webp",
-        timestamp=1740262942000,
+    response = await client.api_data.send(
+        member_id=1,
+        request={
+            "parameters": {
+                "key1": "value1",
+                "key2": "value2",
+            },
+            "url": "https://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
+        },
+        response={
+            "data": {
+                "member_id": "bar",
+                "nickname": "bar",
+            },
+            "timestamp": 1740262942000,
+        },
     )
     print(response.result)
 
@@ -94,9 +120,22 @@ async def main() -> None:
         client_secret="My Client Secret",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        response = await client.cache.invalidate(
-            key="assets/ships/0001/full.webp",
-            timestamp=1740262942000,
+        response = await client.api_data.send(
+            member_id=1,
+            request={
+                "parameters": {
+                    "key1": "value1",
+                    "key2": "value2",
+                },
+                "url": "https://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
+            },
+            response={
+                "data": {
+                    "member_id": "bar",
+                    "nickname": "bar",
+                },
+                "timestamp": 1740262942000,
+            },
         )
         print(response.result)
 
@@ -165,24 +204,20 @@ client = XRayWebhook(
 
 try:
     client.api_data.send(
-        member_id=123456789,
+        member_id=1,
         request={
-            "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
             "parameters": {
                 "key1": "value1",
                 "key2": "value2",
             },
+            "url": "https://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
         },
         response={
-            "timestamp": 1740262942,
             "data": {
-                "member_id": "123456789",
-                "nickname": "foo,",
+                "member_id": "bar",
+                "nickname": "bar",
             },
-        },
-        log={
-            "bucket": "x-ray-log",
-            "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+            "timestamp": 1740262942000,
         },
     )
 except x_ray_webhook.APIConnectionError as e:
@@ -230,24 +265,20 @@ client = XRayWebhook(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).api_data.send(
-    member_id=123456789,
+    member_id=1,
     request={
-        "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
         "parameters": {
             "key1": "value1",
             "key2": "value2",
         },
+        "url": "https://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
     },
     response={
-        "timestamp": 1740262942,
         "data": {
-            "member_id": "123456789",
-            "nickname": "foo,",
+            "member_id": "bar",
+            "nickname": "bar",
         },
-    },
-    log={
-        "bucket": "x-ray-log",
-        "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+        "timestamp": 1740262942000,
     },
 )
 ```
@@ -277,24 +308,20 @@ client = XRayWebhook(
 
 # Override per-request:
 client.with_options(timeout=5.0).api_data.send(
-    member_id=123456789,
+    member_id=1,
     request={
-        "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
         "parameters": {
             "key1": "value1",
             "key2": "value2",
         },
+        "url": "https://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
     },
     response={
-        "timestamp": 1740262942,
         "data": {
-            "member_id": "123456789",
-            "nickname": "foo,",
+            "member_id": "bar",
+            "nickname": "bar",
         },
-    },
-    log={
-        "bucket": "x-ray-log",
-        "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+        "timestamp": 1740262942000,
     },
 )
 ```
@@ -341,24 +368,20 @@ client = XRayWebhook(
     client_secret="My Client Secret",
 )
 response = client.api_data.with_raw_response.send(
-    member_id=123456789,
+    member_id=1,
     request={
-        "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
         "parameters": {
             "key1": "value1",
             "key2": "value2",
         },
+        "url": "https://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
     },
     response={
-        "timestamp": 1740262942,
         "data": {
-            "member_id": "123456789",
-            "nickname": "foo,",
+            "member_id": "bar",
+            "nickname": "bar",
         },
-    },
-    log={
-        "bucket": "x-ray-log",
-        "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+        "timestamp": 1740262942000,
     },
 )
 print(response.headers.get('X-My-Header'))
@@ -379,24 +402,20 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.api_data.with_streaming_response.send(
-    member_id=123456789,
+    member_id=1,
     request={
-        "url": "http://w01y.kancolle_server.com/kcsapi/api_get_member/basic",
         "parameters": {
             "key1": "value1",
             "key2": "value2",
         },
+        "url": "https://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
     },
     response={
-        "timestamp": 1740262942,
         "data": {
-            "member_id": "123456789",
-            "nickname": "foo,",
+            "member_id": "bar",
+            "nickname": "bar",
         },
-    },
-    log={
-        "bucket": "x-ray-log",
-        "key": "other_log/2025/02/22/222222_222222_kcsapi_api_get_member_basic.json.br",
+        "timestamp": 1740262942000,
     },
 ) as response:
     print(response.headers.get("X-My-Header"))
