@@ -132,7 +132,7 @@ response = client.api_data.send(
             "key1": "value1",
             "key2": "value2",
         },
-        "url": "http://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
+        "url": "https://w01y.kancolle-server.com/kcsapi/api_get_member/basic",
     },
     response={
         "data": {

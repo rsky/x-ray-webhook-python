@@ -54,7 +54,7 @@ class CacheResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CacheInvalidateResponse:
         """
-        Invalidate the cache for the specified resource
+        Invalidates the cache for the specified resource
 
         Args:
           key: Resource key to invalidate
@@ -118,7 +118,7 @@ class AsyncCacheResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CacheInvalidateResponse:
         """
-        Invalidate the cache for the specified resource
+        Invalidates the cache for the specified resource
 
         Args:
           key: Resource key to invalidate
