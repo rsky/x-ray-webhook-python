@@ -37,7 +37,7 @@ class Response(TypedDict, total=False):
 
 class Log(TypedDict, total=False):
     bucket: Required[str]
-    """S3 bucket name"""
+    """Bucket name"""
 
     key: Required[str]
     """S3 object key"""

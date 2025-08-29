@@ -56,7 +56,7 @@ class APIDataResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> APIDataSendResponse:
         """
-        Receive KanColle API request and response
+        Receives KanColle API request and response data
 
         Args:
           member_id: Member ID
@@ -122,7 +122,7 @@ class AsyncAPIDataResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> APIDataSendResponse:
         """
-        Receive KanColle API request and response
+        Receives KanColle API request and response data
 
         Args:
           member_id: Member ID
