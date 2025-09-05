@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.11.0 (2025-09-05)
+
+Full Changelog: [v0.10.0...v0.11.0](https://github.com/rsky/x-ray-webhook-python/compare/v0.10.0...v0.11.0)
+
+### Features
+
+* improve future compat with pydantic v3 ([60390e0](https://github.com/rsky/x-ray-webhook-python/commit/60390e0cfeaee7ce6f455f2d6a2277bee5afd209))
+* **types:** replace List[str] with SequenceNotStr in params ([522e32c](https://github.com/rsky/x-ray-webhook-python/commit/522e32c1bd25f78f5f4dc954cab5142f074e2a74))
+
+
+### Chores
+
+* **internal:** add Sequence related utils ([706026c](https://github.com/rsky/x-ray-webhook-python/commit/706026cad12bdb64019990bce917a8aecbbe8032))
+* **internal:** move mypy configurations to `pyproject.toml` file ([c0237fe](https://github.com/rsky/x-ray-webhook-python/commit/c0237fe12ab93a0922cffc520095a67d53be5c88))
+
 ## 0.10.0 (2025-08-29)
 
 Full Changelog: [v0.9.1...v0.10.0](https://github.com/rsky/x-ray-webhook-python/compare/v0.9.1...v0.10.0)
