@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.11.1 (2025-09-20)
+
+Full Changelog: [v0.11.0...v0.11.1](https://github.com/rsky/x-ray-webhook-python/compare/v0.11.0...v0.11.1)
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([3645265](https://github.com/rsky/x-ray-webhook-python/commit/364526564b9e95e50cc010a3e06ab6c01962c13b))
+* **internal:** codegen related update ([d8d7a9f](https://github.com/rsky/x-ray-webhook-python/commit/d8d7a9f7b9ce068997250b0cbf46014ffec2e6f0))
+* **internal:** update pydantic dependency ([117eaa7](https://github.com/rsky/x-ray-webhook-python/commit/117eaa7329a5d5652cb817f79b31904426a81a9c))
+* **types:** change optional parameter type from NotGiven to Omit ([963f5d3](https://github.com/rsky/x-ray-webhook-python/commit/963f5d3323393aa3da3fdcea631cd281a8371e36))
+
 ## 0.11.0 (2025-09-05)
 
 Full Changelog: [v0.10.0...v0.11.0](https://github.com/rsky/x-ray-webhook-python/compare/v0.10.0...v0.11.0)
