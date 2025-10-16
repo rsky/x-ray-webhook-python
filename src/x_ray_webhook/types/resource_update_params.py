@@ -4,12 +4,12 @@ from __future__ import annotations
 
 from typing_extensions import Required, TypedDict
 
-__all__ = ["CacheInvalidateParams"]
+__all__ = ["ResourceUpdateParams"]
 
 
-class CacheInvalidateParams(TypedDict, total=False):
+class ResourceUpdateParams(TypedDict, total=False):
     key: Required[str]
-    """Resource key to invalidate"""
+    """Key of the updated resource"""
 
     timestamp: Required[int]
-    """The UNIX timestamp (in milliseconds) when the new resource was received."""
+    """The UNIX timestamp (in milliseconds) when the new resource was received"""

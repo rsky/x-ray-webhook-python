@@ -1,4 +1,4 @@
 configured_endpoints: 3
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/private%2Fx-ray-webhook-59dcf61086d0be0eba777e2adc5236557cb607ac37e658cf9f64fa3c4c0033da.yml
-openapi_spec_hash: 1558c59135dab0609c607c5b157ac765
-config_hash: 66ee58cde0790c3ecd83877864fbd3ef
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/private%2Fx-ray-webhook-b2da697171588e7bc983999c406483e61d5772e1c3ca2e89fbe7c275585b944a.yml
+openapi_spec_hash: ac38b8d5872ffdb2e943cf46bec5f9d8
+config_hash: b9d5de008e55cd524d560b32635effcd

@@ -9,90 +9,90 @@ import pytest
 
 from tests.utils import assert_matches_type
 from x_ray_webhook import XRayWebhook, AsyncXRayWebhook
-from x_ray_webhook.types import CacheInvalidateResponse
+from x_ray_webhook.types import ResourceUpdateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
-class TestCache:
+class TestResource:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_invalidate(self, client: XRayWebhook) -> None:
-        cache = client.cache.invalidate(
+    def test_method_update(self, client: XRayWebhook) -> None:
+        resource = client.resource.update(
             key="assets/ships/0001/full.webp",
             timestamp=1740262942000,
         )
-        assert_matches_type(CacheInvalidateResponse, cache, path=["response"])
+        assert_matches_type(ResourceUpdateResponse, resource, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_invalidate(self, client: XRayWebhook) -> None:
-        response = client.cache.with_raw_response.invalidate(
+    def test_raw_response_update(self, client: XRayWebhook) -> None:
+        response = client.resource.with_raw_response.update(
             key="assets/ships/0001/full.webp",
             timestamp=1740262942000,
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        cache = response.parse()
-        assert_matches_type(CacheInvalidateResponse, cache, path=["response"])
+        resource = response.parse()
+        assert_matches_type(ResourceUpdateResponse, resource, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_invalidate(self, client: XRayWebhook) -> None:
-        with client.cache.with_streaming_response.invalidate(
+    def test_streaming_response_update(self, client: XRayWebhook) -> None:
+        with client.resource.with_streaming_response.update(
             key="assets/ships/0001/full.webp",
             timestamp=1740262942000,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            cache = response.parse()
-            assert_matches_type(CacheInvalidateResponse, cache, path=["response"])
+            resource = response.parse()
+            assert_matches_type(ResourceUpdateResponse, resource, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
 
-class TestAsyncCache:
+class TestAsyncResource:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_invalidate(self, async_client: AsyncXRayWebhook) -> None:
-        cache = await async_client.cache.invalidate(
+    async def test_method_update(self, async_client: AsyncXRayWebhook) -> None:
+        resource = await async_client.resource.update(
             key="assets/ships/0001/full.webp",
             timestamp=1740262942000,
         )
-        assert_matches_type(CacheInvalidateResponse, cache, path=["response"])
+        assert_matches_type(ResourceUpdateResponse, resource, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_invalidate(self, async_client: AsyncXRayWebhook) -> None:
-        response = await async_client.cache.with_raw_response.invalidate(
+    async def test_raw_response_update(self, async_client: AsyncXRayWebhook) -> None:
+        response = await async_client.resource.with_raw_response.update(
             key="assets/ships/0001/full.webp",
             timestamp=1740262942000,
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        cache = await response.parse()
-        assert_matches_type(CacheInvalidateResponse, cache, path=["response"])
+        resource = await response.parse()
+        assert_matches_type(ResourceUpdateResponse, resource, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_invalidate(self, async_client: AsyncXRayWebhook) -> None:
-        async with async_client.cache.with_streaming_response.invalidate(
+    async def test_streaming_response_update(self, async_client: AsyncXRayWebhook) -> None:
+        async with async_client.resource.with_streaming_response.update(
             key="assets/ships/0001/full.webp",
             timestamp=1740262942000,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            cache = await response.parse()
-            assert_matches_type(CacheInvalidateResponse, cache, path=["response"])
+            resource = await response.parse()
+            assert_matches_type(ResourceUpdateResponse, resource, path=["response"])
 
         assert cast(Any, response.is_closed) is True

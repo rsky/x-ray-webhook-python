@@ -10,17 +10,17 @@ Methods:
 
 - <code title="post /api_data">client.api_data.<a href="./src/x_ray_webhook/resources/api_data.py">send</a>(\*\*<a href="src/x_ray_webhook/types/api_data_send_params.py">params</a>) -> <a href="./src/x_ray_webhook/types/api_data_send_response.py">APIDataSendResponse</a></code>
 
-# Cache
+# Resource
 
 Types:
 
 ```python
-from x_ray_webhook.types import CacheInvalidateResponse
+from x_ray_webhook.types import ResourceUpdateResponse
 ```
 
 Methods:
 
-- <code title="post /cache/invalidate">client.cache.<a href="./src/x_ray_webhook/resources/cache.py">invalidate</a>(\*\*<a href="src/x_ray_webhook/types/cache_invalidate_params.py">params</a>) -> <a href="./src/x_ray_webhook/types/cache_invalidate_response.py">CacheInvalidateResponse</a></code>
+- <code title="post /resource_update">client.resource.<a href="./src/x_ray_webhook/resources/resource.py">update</a>(\*\*<a href="src/x_ray_webhook/types/resource_update_params.py">params</a>) -> <a href="./src/x_ray_webhook/types/resource_update_response.py">ResourceUpdateResponse</a></code>
 
 # MemberInfo
 
