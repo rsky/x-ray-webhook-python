@@ -2,9 +2,9 @@
 
 from .._models import BaseModel
 
-__all__ = ["CacheInvalidateResponse"]
+__all__ = ["ResourceUpdateResponse"]
 
 
-class CacheInvalidateResponse(BaseModel):
+class ResourceUpdateResponse(BaseModel):
     result: str
     """Result"""

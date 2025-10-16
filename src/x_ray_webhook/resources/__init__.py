@@ -1,13 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .cache import (
-    CacheResource,
-    AsyncCacheResource,
-    CacheResourceWithRawResponse,
-    AsyncCacheResourceWithRawResponse,
-    CacheResourceWithStreamingResponse,
-    AsyncCacheResourceWithStreamingResponse,
-)
 from .api_data import (
     APIDataResource,
     AsyncAPIDataResource,
@@ -15,6 +7,14 @@ from .api_data import (
     AsyncAPIDataResourceWithRawResponse,
     APIDataResourceWithStreamingResponse,
     AsyncAPIDataResourceWithStreamingResponse,
+)
+from .resource import (
+    ResourceResource,
+    AsyncResourceResource,
+    ResourceResourceWithRawResponse,
+    AsyncResourceResourceWithRawResponse,
+    ResourceResourceWithStreamingResponse,
+    AsyncResourceResourceWithStreamingResponse,
 )
 from .member_info import (
     MemberInfoResource,
@@ -32,12 +32,12 @@ __all__ = [
     "AsyncAPIDataResourceWithRawResponse",
     "APIDataResourceWithStreamingResponse",
     "AsyncAPIDataResourceWithStreamingResponse",
-    "CacheResource",
-    "AsyncCacheResource",
-    "CacheResourceWithRawResponse",
-    "AsyncCacheResourceWithRawResponse",
-    "CacheResourceWithStreamingResponse",
-    "AsyncCacheResourceWithStreamingResponse",
+    "ResourceResource",
+    "AsyncResourceResource",
+    "ResourceResourceWithRawResponse",
+    "AsyncResourceResourceWithRawResponse",
+    "ResourceResourceWithStreamingResponse",
+    "AsyncResourceResourceWithStreamingResponse",
     "MemberInfoResource",
     "AsyncMemberInfoResource",
     "MemberInfoResourceWithRawResponse",

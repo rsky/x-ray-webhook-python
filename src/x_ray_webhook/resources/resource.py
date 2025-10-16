@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import cache_invalidate_params
+from ..types import resource_update_params
 from .._types import Body, Query, Headers, NotGiven, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -16,32 +16,32 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.cache_invalidate_response import CacheInvalidateResponse
+from ..types.resource_update_response import ResourceUpdateResponse
 
-__all__ = ["CacheResource", "AsyncCacheResource"]
+__all__ = ["ResourceResource", "AsyncResourceResource"]
 
 
-class CacheResource(SyncAPIResource):
+class ResourceResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> CacheResourceWithRawResponse:
+    def with_raw_response(self) -> ResourceResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/rsky/x-ray-webhook-python#accessing-raw-response-data-eg-headers
         """
-        return CacheResourceWithRawResponse(self)
+        return ResourceResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> CacheResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ResourceResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/rsky/x-ray-webhook-python#with_streaming_response
         """
-        return CacheResourceWithStreamingResponse(self)
+        return ResourceResourceWithStreamingResponse(self)
 
-    def invalidate(
+    def update(
         self,
         *,
         key: str,
@@ -52,14 +52,14 @@ class CacheResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CacheInvalidateResponse:
+    ) -> ResourceUpdateResponse:
         """
-        Invalidates the cache for the specified resource
+        Notifies that the resource has been updated
 
         Args:
-          key: Resource key to invalidate
+          key: Key of the updated resource
 
-          timestamp: The UNIX timestamp (in milliseconds) when the new resource was received.
+          timestamp: The UNIX timestamp (in milliseconds) when the new resource was received
 
           extra_headers: Send extra headers
 
@@ -70,42 +70,42 @@ class CacheResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/cache/invalidate",
+            "/resource_update",
             body=maybe_transform(
                 {
                     "key": key,
                     "timestamp": timestamp,
                 },
-                cache_invalidate_params.CacheInvalidateParams,
+                resource_update_params.ResourceUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CacheInvalidateResponse,
+            cast_to=ResourceUpdateResponse,
         )
 
 
-class AsyncCacheResource(AsyncAPIResource):
+class AsyncResourceResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncCacheResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncResourceResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/rsky/x-ray-webhook-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncCacheResourceWithRawResponse(self)
+        return AsyncResourceResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncCacheResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncResourceResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/rsky/x-ray-webhook-python#with_streaming_response
         """
-        return AsyncCacheResourceWithStreamingResponse(self)
+        return AsyncResourceResourceWithStreamingResponse(self)
 
-    async def invalidate(
+    async def update(
         self,
         *,
         key: str,
@@ -116,14 +116,14 @@ class AsyncCacheResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> CacheInvalidateResponse:
+    ) -> ResourceUpdateResponse:
         """
-        Invalidates the cache for the specified resource
+        Notifies that the resource has been updated
 
         Args:
-          key: Resource key to invalidate
+          key: Key of the updated resource
 
-          timestamp: The UNIX timestamp (in milliseconds) when the new resource was received.
+          timestamp: The UNIX timestamp (in milliseconds) when the new resource was received
 
           extra_headers: Send extra headers
 
@@ -134,52 +134,52 @@ class AsyncCacheResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/cache/invalidate",
+            "/resource_update",
             body=await async_maybe_transform(
                 {
                     "key": key,
                     "timestamp": timestamp,
                 },
-                cache_invalidate_params.CacheInvalidateParams,
+                resource_update_params.ResourceUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=CacheInvalidateResponse,
+            cast_to=ResourceUpdateResponse,
         )
 
 
-class CacheResourceWithRawResponse:
-    def __init__(self, cache: CacheResource) -> None:
-        self._cache = cache
+class ResourceResourceWithRawResponse:
+    def __init__(self, resource: ResourceResource) -> None:
+        self._resource = resource
 
-        self.invalidate = to_raw_response_wrapper(
-            cache.invalidate,
+        self.update = to_raw_response_wrapper(
+            resource.update,
         )
 
 
-class AsyncCacheResourceWithRawResponse:
-    def __init__(self, cache: AsyncCacheResource) -> None:
-        self._cache = cache
+class AsyncResourceResourceWithRawResponse:
+    def __init__(self, resource: AsyncResourceResource) -> None:
+        self._resource = resource
 
-        self.invalidate = async_to_raw_response_wrapper(
-            cache.invalidate,
+        self.update = async_to_raw_response_wrapper(
+            resource.update,
         )
 
 
-class CacheResourceWithStreamingResponse:
-    def __init__(self, cache: CacheResource) -> None:
-        self._cache = cache
+class ResourceResourceWithStreamingResponse:
+    def __init__(self, resource: ResourceResource) -> None:
+        self._resource = resource
 
-        self.invalidate = to_streamed_response_wrapper(
-            cache.invalidate,
+        self.update = to_streamed_response_wrapper(
+            resource.update,
         )
 
 
-class AsyncCacheResourceWithStreamingResponse:
-    def __init__(self, cache: AsyncCacheResource) -> None:
-        self._cache = cache
+class AsyncResourceResourceWithStreamingResponse:
+    def __init__(self, resource: AsyncResourceResource) -> None:
+        self._resource = resource
 
-        self.invalidate = async_to_streamed_response_wrapper(
-            cache.invalidate,
+        self.update = async_to_streamed_response_wrapper(
+            resource.update,
         )
