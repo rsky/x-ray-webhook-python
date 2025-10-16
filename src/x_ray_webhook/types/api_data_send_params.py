@@ -32,7 +32,7 @@ class Response(TypedDict, total=False):
     """api_data"""
 
     timestamp: Required[int]
-    """The UNIX timestamp (in milliseconds) when the response was received."""
+    """The UNIX timestamp (in milliseconds) when the response was received"""
 
 
 class Log(TypedDict, total=False):

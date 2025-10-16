@@ -35,11 +35,11 @@ client = XRayWebhook(
     client_secret="My Client Secret",
 )
 
-response = client.cache.invalidate(
+resource = client.resource.update(
     key="assets/ships/0001/full.webp",
     timestamp=1740262942000,
 )
-print(response.result)
+print(resource.result)
 ```
 
 ## Async usage
@@ -57,11 +57,11 @@ client = AsyncXRayWebhook(
 
 
 async def main() -> None:
-    response = await client.cache.invalidate(
+    resource = await client.resource.update(
         key="assets/ships/0001/full.webp",
         timestamp=1740262942000,
     )
-    print(response.result)
+    print(resource.result)
 
 
 asyncio.run(main())
@@ -94,11 +94,11 @@ async def main() -> None:
         client_secret="My Client Secret",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        response = await client.cache.invalidate(
+        resource = await client.resource.update(
             key="assets/ships/0001/full.webp",
             timestamp=1740262942000,
         )
-        print(response.result)
+        print(resource.result)
 
 
 asyncio.run(main())

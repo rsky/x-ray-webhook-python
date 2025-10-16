@@ -21,7 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import cache, api_data, member_info
+from .resources import api_data, resource, member_info
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -44,7 +44,7 @@ __all__ = [
 
 class XRayWebhook(SyncAPIClient):
     api_data: api_data.APIDataResource
-    cache: cache.CacheResource
+    resource: resource.ResourceResource
     member_info: member_info.MemberInfoResource
     with_raw_response: XRayWebhookWithRawResponse
     with_streaming_response: XRayWebhookWithStreamedResponse
@@ -99,7 +99,7 @@ class XRayWebhook(SyncAPIClient):
         )
 
         self.api_data = api_data.APIDataResource(self)
-        self.cache = cache.CacheResource(self)
+        self.resource = resource.ResourceResource(self)
         self.member_info = member_info.MemberInfoResource(self)
         self.with_raw_response = XRayWebhookWithRawResponse(self)
         self.with_streaming_response = XRayWebhookWithStreamedResponse(self)
@@ -209,7 +209,7 @@ class XRayWebhook(SyncAPIClient):
 
 class AsyncXRayWebhook(AsyncAPIClient):
     api_data: api_data.AsyncAPIDataResource
-    cache: cache.AsyncCacheResource
+    resource: resource.AsyncResourceResource
     member_info: member_info.AsyncMemberInfoResource
     with_raw_response: AsyncXRayWebhookWithRawResponse
     with_streaming_response: AsyncXRayWebhookWithStreamedResponse
@@ -264,7 +264,7 @@ class AsyncXRayWebhook(AsyncAPIClient):
         )
 
         self.api_data = api_data.AsyncAPIDataResource(self)
-        self.cache = cache.AsyncCacheResource(self)
+        self.resource = resource.AsyncResourceResource(self)
         self.member_info = member_info.AsyncMemberInfoResource(self)
         self.with_raw_response = AsyncXRayWebhookWithRawResponse(self)
         self.with_streaming_response = AsyncXRayWebhookWithStreamedResponse(self)
@@ -375,28 +375,28 @@ class AsyncXRayWebhook(AsyncAPIClient):
 class XRayWebhookWithRawResponse:
     def __init__(self, client: XRayWebhook) -> None:
         self.api_data = api_data.APIDataResourceWithRawResponse(client.api_data)
-        self.cache = cache.CacheResourceWithRawResponse(client.cache)
+        self.resource = resource.ResourceResourceWithRawResponse(client.resource)
         self.member_info = member_info.MemberInfoResourceWithRawResponse(client.member_info)
 
 
 class AsyncXRayWebhookWithRawResponse:
     def __init__(self, client: AsyncXRayWebhook) -> None:
         self.api_data = api_data.AsyncAPIDataResourceWithRawResponse(client.api_data)
-        self.cache = cache.AsyncCacheResourceWithRawResponse(client.cache)
+        self.resource = resource.AsyncResourceResourceWithRawResponse(client.resource)
         self.member_info = member_info.AsyncMemberInfoResourceWithRawResponse(client.member_info)
 
 
 class XRayWebhookWithStreamedResponse:
     def __init__(self, client: XRayWebhook) -> None:
         self.api_data = api_data.APIDataResourceWithStreamingResponse(client.api_data)
-        self.cache = cache.CacheResourceWithStreamingResponse(client.cache)
+        self.resource = resource.ResourceResourceWithStreamingResponse(client.resource)
         self.member_info = member_info.MemberInfoResourceWithStreamingResponse(client.member_info)
 
 
 class AsyncXRayWebhookWithStreamedResponse:
     def __init__(self, client: AsyncXRayWebhook) -> None:
         self.api_data = api_data.AsyncAPIDataResourceWithStreamingResponse(client.api_data)
-        self.cache = cache.AsyncCacheResourceWithStreamingResponse(client.cache)
+        self.resource = resource.AsyncResourceResourceWithStreamingResponse(client.resource)
         self.member_info = member_info.AsyncMemberInfoResourceWithStreamingResponse(client.member_info)
 
 
