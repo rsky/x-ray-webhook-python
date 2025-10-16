@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.0.0 (2025-10-16)
+
+Full Changelog: [v0.11.1...v1.0.0](https://github.com/rsky/x-ray-webhook-python/compare/v0.11.1...v1.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* rename /cahce/invalidate -> /resource/update
+
+### Chores
+
+* **internal:** detect missing future annotations with ruff ([eff8152](https://github.com/rsky/x-ray-webhook-python/commit/eff8152eb8c0292aae77876e1ab90f6a2c5830ac))
+
+
+### Refactors
+
+* rename /cahce/invalidate -&gt; /resource/update ([2892177](https://github.com/rsky/x-ray-webhook-python/commit/28921771e24f73750ff603a1d70c732a67277e28))
+
 ## 0.11.1 (2025-09-20)
 
 Full Changelog: [v0.11.0...v0.11.1](https://github.com/rsky/x-ray-webhook-python/compare/v0.11.0...v0.11.1)
