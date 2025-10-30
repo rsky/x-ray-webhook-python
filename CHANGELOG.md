@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 (2025-10-30)
+
+Full Changelog: [v1.0.1...v1.0.2](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.1...v1.0.2)
+
+### Bug Fixes
+
+* **client:** close streams without requiring full consumption ([8bcf0ea](https://github.com/rsky/x-ray-webhook-python/commit/8bcf0ea1def3fbda471489a55748416b8e3ffd43))
+
 ## 1.0.1 (2025-10-18)
 
 Full Changelog: [v1.0.0...v1.0.1](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.0...v1.0.1)
