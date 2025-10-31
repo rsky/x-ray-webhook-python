@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3 (2025-10-31)
+
+Full Changelog: [v1.0.2...v1.0.3](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.2...v1.0.3)
+
+### Chores
+
+* **internal/tests:** avoid race condition with implicit client cleanup ([807d475](https://github.com/rsky/x-ray-webhook-python/commit/807d475c0151e015088acd931e3c406caa5060da))
+
 ## 1.0.2 (2025-10-30)
 
 Full Changelog: [v1.0.1...v1.0.2](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.1...v1.0.2)
