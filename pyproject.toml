@@ -1,6 +1,6 @@
 [project]
 name = "x_ray_webhook"
-version = "1.0.2"
+version = "1.0.3"
 description = "The official Python library for the x-ray-webhook API"
 dynamic = ["readme"]
 license = "Apache-2.0"

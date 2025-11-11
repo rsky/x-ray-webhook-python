@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.3 (2025-11-11)
+
+Full Changelog: [v1.0.2...v1.0.3](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.2...v1.0.3)
+
+### Bug Fixes
+
+* compat with Python 3.14 ([608708f](https://github.com/rsky/x-ray-webhook-python/commit/608708fc894233ee1bb3f69464cbf33c3f9ed2a0))
+
+
+### Chores
+
+* **internal/tests:** avoid race condition with implicit client cleanup ([807d475](https://github.com/rsky/x-ray-webhook-python/commit/807d475c0151e015088acd931e3c406caa5060da))
+* **internal:** grammar fix (it's -&gt; its) ([f4dca92](https://github.com/rsky/x-ray-webhook-python/commit/f4dca929c70479fdbd2529468794a1ad6086ee8a))
+* **package:** drop Python 3.8 support ([0a11fe3](https://github.com/rsky/x-ray-webhook-python/commit/0a11fe3857a5320bdd545e1a18cf56133e26f46c))
+
 ## 1.0.2 (2025-10-30)
 
 Full Changelog: [v1.0.1...v1.0.2](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.1...v1.0.2)
