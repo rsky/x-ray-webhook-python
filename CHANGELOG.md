@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.4 (2025-11-22)
+
+Full Changelog: [v1.0.3...v1.0.4](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.3...v1.0.4)
+
+### Bug Fixes
+
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([c109495](https://github.com/rsky/x-ray-webhook-python/commit/c109495d39754343089de831c77749b585a3e850))
+
+
+### Chores
+
+* add Python 3.14 classifier and testing ([70d099d](https://github.com/rsky/x-ray-webhook-python/commit/70d099dc4931e375557aeadca358832d13b9dd0a))
+
 ## 1.0.3 (2025-11-11)
 
 Full Changelog: [v1.0.2...v1.0.3](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.2...v1.0.3)
