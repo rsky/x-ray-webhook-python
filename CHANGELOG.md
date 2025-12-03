@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.5 (2025-12-03)
+
+Full Changelog: [v1.0.4...v1.0.5](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.4...v1.0.5)
+
+### Bug Fixes
+
+* ensure streams are always closed ([bdf5d39](https://github.com/rsky/x-ray-webhook-python/commit/bdf5d390935b31079a055870dc6939a17fd39f48))
+
+
+### Chores
+
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([9cb2129](https://github.com/rsky/x-ray-webhook-python/commit/9cb2129722cd974652736f3590fc2e0c86647e34))
+* update lockfile ([9a789ca](https://github.com/rsky/x-ray-webhook-python/commit/9a789ca393437e9b1a47b6e9ba455860ca582352))
+
 ## 1.0.4 (2025-11-22)
 
 Full Changelog: [v1.0.3...v1.0.4](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.3...v1.0.4)
