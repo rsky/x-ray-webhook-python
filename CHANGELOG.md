@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.6 (2025-12-09)
+
+Full Changelog: [v1.0.5...v1.0.6](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.5...v1.0.6)
+
+### Bug Fixes
+
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([4a43f5a](https://github.com/rsky/x-ray-webhook-python/commit/4a43f5afc46c4657720009e2acdf14675903dd47))
+
 ## 1.0.5 (2025-12-03)
 
 Full Changelog: [v1.0.4...v1.0.5](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.4...v1.0.5)
