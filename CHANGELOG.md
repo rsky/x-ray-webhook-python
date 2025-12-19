@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.0.6 (2025-12-19)
+
+Full Changelog: [v1.0.5...v1.0.6](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.5...v1.0.6)
+
+### Bug Fixes
+
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([4a43f5a](https://github.com/rsky/x-ray-webhook-python/commit/4a43f5afc46c4657720009e2acdf14675903dd47))
+* use async_to_httpx_files in patch method ([19c0a3d](https://github.com/rsky/x-ray-webhook-python/commit/19c0a3d6af12ba6406f3a6cf11b1830d1299cdae))
+
+
+### Chores
+
+* **internal:** add `--fix` argument to lint script ([e029ce1](https://github.com/rsky/x-ray-webhook-python/commit/e029ce1961785e7f3463e8ae085a99eab6973e85))
+* **internal:** add missing files argument to base client ([b14455b](https://github.com/rsky/x-ray-webhook-python/commit/b14455b641a2fd301fc24de7b8e0f5a38aadb916))
+* speedup initial import ([4885a9d](https://github.com/rsky/x-ray-webhook-python/commit/4885a9d32dc1755f411c5a98bc00bbbca50d362b))
+
 ## 1.0.5 (2025-12-03)
 
 Full Changelog: [v1.0.4...v1.0.5](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.4...v1.0.5)
