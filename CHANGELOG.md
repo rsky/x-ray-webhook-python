@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.7 (2026-01-06)
+
+Full Changelog: [v1.0.6...v1.0.7](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.6...v1.0.7)
+
+### Chores
+
+* **internal:** codegen related update ([0df52e9](https://github.com/rsky/x-ray-webhook-python/commit/0df52e943c4cb5c20345584441a98209cf18e077))
+
 ## 1.0.6 (2025-12-19)
 
 Full Changelog: [v1.0.5...v1.0.6](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.5...v1.0.6)
