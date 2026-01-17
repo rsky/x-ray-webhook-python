@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.0 (2026-01-17)
+
+Full Changelog: [v1.0.7...v1.1.0](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.7...v1.1.0)
+
+### Features
+
+* **client:** add support for binary request streaming ([cd1c93d](https://github.com/rsky/x-ray-webhook-python/commit/cd1c93d4323f6ed190eac341189bd26d365687c2))
+
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([3670ecb](https://github.com/rsky/x-ray-webhook-python/commit/3670ecb1dfa9a9b201111b02390a77a09e4c3718))
+
 ## 1.0.7 (2026-01-06)
 
 Full Changelog: [v1.0.6...v1.0.7](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.6...v1.0.7)
