@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.0 (2026-01-30)
+
+Full Changelog: [v1.1.0...v1.2.0](https://github.com/rsky/x-ray-webhook-python/compare/v1.1.0...v1.2.0)
+
+### Features
+
+* **client:** add custom JSON encoder for extended type support ([0611486](https://github.com/rsky/x-ray-webhook-python/commit/0611486d02a1188fb08634eb80b41a5dcafed454))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([3e634c3](https://github.com/rsky/x-ray-webhook-python/commit/3e634c3083230b1773d04a04d545f2b49b0b23c5))
+
 ## 1.1.0 (2026-01-17)
 
 Full Changelog: [v1.0.7...v1.1.0](https://github.com/rsky/x-ray-webhook-python/compare/v1.0.7...v1.1.0)
