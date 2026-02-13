@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.1 (2026-02-13)
+
+Full Changelog: [v1.2.0...v1.2.1](https://github.com/rsky/x-ray-webhook-python/compare/v1.2.0...v1.2.1)
+
+### Chores
+
+* format all `api.md` files ([8012f6e](https://github.com/rsky/x-ray-webhook-python/commit/8012f6ecb73b431b2b86b302dd3cdb8974586e06))
+* **internal:** bump dependencies ([35db1ba](https://github.com/rsky/x-ray-webhook-python/commit/35db1ba8c4afd5c8de59db5eee8601888cf21b4d))
+* **internal:** fix lint error on Python 3.14 ([de0611e](https://github.com/rsky/x-ray-webhook-python/commit/de0611ef39cd809d81d59bb4a741c8f623f01946))
+
 ## 1.2.0 (2026-01-30)
 
 Full Changelog: [v1.1.0...v1.2.0](https://github.com/rsky/x-ray-webhook-python/compare/v1.1.0...v1.2.0)
