@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestResource:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: XRayWebhook) -> None:
         resource = client.resource.update(
@@ -26,7 +26,7 @@ class TestResource:
         )
         assert_matches_type(ResourceUpdateResponse, resource, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: XRayWebhook) -> None:
         response = client.resource.with_raw_response.update(
@@ -39,7 +39,7 @@ class TestResource:
         resource = response.parse()
         assert_matches_type(ResourceUpdateResponse, resource, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: XRayWebhook) -> None:
         with client.resource.with_streaming_response.update(
@@ -60,7 +60,7 @@ class TestAsyncResource:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncXRayWebhook) -> None:
         resource = await async_client.resource.update(
@@ -69,7 +69,7 @@ class TestAsyncResource:
         )
         assert_matches_type(ResourceUpdateResponse, resource, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncXRayWebhook) -> None:
         response = await async_client.resource.with_raw_response.update(
@@ -82,7 +82,7 @@ class TestAsyncResource:
         resource = await response.parse()
         assert_matches_type(ResourceUpdateResponse, resource, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncXRayWebhook) -> None:
         async with async_client.resource.with_streaming_response.update(
