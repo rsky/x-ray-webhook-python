@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.2 (2026-03-07)
+
+Full Changelog: [v1.2.1...v1.2.2](https://github.com/rsky/x-ray-webhook-python/compare/v1.2.1...v1.2.2)
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([412d2df](https://github.com/rsky/x-ray-webhook-python/commit/412d2df835fd1453300dc9944375de454cc96671))
+* **internal:** add request options to SSE classes ([f9dae1e](https://github.com/rsky/x-ray-webhook-python/commit/f9dae1e588d341119ef0cf559a91157544cd078f))
+* **internal:** make `test_proxy_environment_variables` more resilient ([994a7c9](https://github.com/rsky/x-ray-webhook-python/commit/994a7c938bef59d2d1ce11c900d6a7578cc971b7))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([85af297](https://github.com/rsky/x-ray-webhook-python/commit/85af297cc5c8bad5409e3743fee765eb5063c3af))
+* **internal:** remove mock server code ([d1648e9](https://github.com/rsky/x-ray-webhook-python/commit/d1648e918957212434cdcee30b07dcb7937f9763))
+* update mock server docs ([d84f627](https://github.com/rsky/x-ray-webhook-python/commit/d84f6278abb9054de9f73af0e268a4c91b5b03b4))
+
 ## 1.2.1 (2026-02-13)
 
 Full Changelog: [v1.2.0...v1.2.1](https://github.com/rsky/x-ray-webhook-python/compare/v1.2.0...v1.2.1)
