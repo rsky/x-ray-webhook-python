@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.2.3 (2026-03-25)
+
+Full Changelog: [v1.2.2...v1.2.3](https://github.com/rsky/x-ray-webhook-python/compare/v1.2.2...v1.2.3)
+
+### Bug Fixes
+
+* **deps:** bump minimum typing-extensions version ([b848982](https://github.com/rsky/x-ray-webhook-python/commit/b8489825de3a8dc083654e36de938a7b352cece8))
+* **pydantic:** do not pass `by_alias` unless set ([46ec013](https://github.com/rsky/x-ray-webhook-python/commit/46ec013f0d05a9b04f22f3ec44ca1de450d29292))
+* sanitize endpoint path params ([71660df](https://github.com/rsky/x-ray-webhook-python/commit/71660df4f500298c6f38a2f70d04a20cdfd8e916))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([7e91ae4](https://github.com/rsky/x-ray-webhook-python/commit/7e91ae474d62220509494261978131828b8f5c78))
+* **internal:** tweak CI branches ([1df8bc1](https://github.com/rsky/x-ray-webhook-python/commit/1df8bc19771be4848a8b10c17f408d78351e8e95))
+* **internal:** update gitignore ([66eb127](https://github.com/rsky/x-ray-webhook-python/commit/66eb12791191c9c1fd6579bb1bc9e865d69fadc7))
+
 ## 1.2.2 (2026-03-07)
 
 Full Changelog: [v1.2.1...v1.2.2](https://github.com/rsky/x-ray-webhook-python/compare/v1.2.1...v1.2.2)
