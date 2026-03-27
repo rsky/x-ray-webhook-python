@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.0 (2026-03-27)
+
+Full Changelog: [v1.2.3...v1.3.0](https://github.com/rsky/x-ray-webhook-python/compare/v1.2.3...v1.3.0)
+
+### Features
+
+* **internal:** implement indices array format for query and form serialization ([65d4ef1](https://github.com/rsky/x-ray-webhook-python/commit/65d4ef10b2f5f5bbc61504b0819848f1bdfae0c7))
+
 ## 1.2.3 (2026-03-25)
 
 Full Changelog: [v1.2.2...v1.2.3](https://github.com/rsky/x-ray-webhook-python/compare/v1.2.2...v1.2.3)
