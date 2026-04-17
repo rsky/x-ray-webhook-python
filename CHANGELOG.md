@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.1 (2026-04-11)
+
+Full Changelog: [v1.3.0...v1.3.1](https://github.com/rsky/x-ray-webhook-python/compare/v1.3.0...v1.3.1)
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([ba18dd0](https://github.com/rsky/x-ray-webhook-python/commit/ba18dd09d093f912034fa8ebb983e521ceda7238))
+* ensure file data are only sent as 1 parameter ([8ba4628](https://github.com/rsky/x-ray-webhook-python/commit/8ba4628684526665786c9395a45be2da08c7354d))
+
 ## 1.3.0 (2026-03-27)
 
 Full Changelog: [v1.2.3...v1.3.0](https://github.com/rsky/x-ray-webhook-python/compare/v1.2.3...v1.3.0)
