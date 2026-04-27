@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.3.2 (2026-04-23)
+
+Full Changelog: [v1.3.1...v1.3.2](https://github.com/rsky/x-ray-webhook-python/compare/v1.3.1...v1.3.2)
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([b5309ea](https://github.com/rsky/x-ray-webhook-python/commit/b5309eab204aaa4530ed6c60dfb28ebe68ab782e))
+
+
+### Chores
+
+* **internal:** more robust bootstrap script ([bb0c382](https://github.com/rsky/x-ray-webhook-python/commit/bb0c3822c1ebb11cce5de5ce59c604af9c54479d))
+
 ## 1.3.1 (2026-04-11)
 
 Full Changelog: [v1.3.0...v1.3.1](https://github.com/rsky/x-ray-webhook-python/compare/v1.3.0...v1.3.1)
