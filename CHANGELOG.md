@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.4.0 (2026-05-01)
+
+Full Changelog: [v1.3.2...v1.4.0](https://github.com/rsky/x-ray-webhook-python/compare/v1.3.2...v1.4.0)
+
+### Features
+
+* support setting headers via env ([edad4c0](https://github.com/rsky/x-ray-webhook-python/commit/edad4c09131d512c1747b6aed7576e1de5954fa7))
+
+
+### Bug Fixes
+
+* use correct field name format for multipart file arrays ([ecdb976](https://github.com/rsky/x-ray-webhook-python/commit/ecdb9763016b969308520325509577a4d79675dc))
+
+
+### Chores
+
+* **internal:** reformat pyproject.toml ([0deafac](https://github.com/rsky/x-ray-webhook-python/commit/0deafac4172a127199f2bedb0cafdf4a971872d4))
+
 ## 1.3.2 (2026-04-23)
 
 Full Changelog: [v1.3.1...v1.3.2](https://github.com/rsky/x-ray-webhook-python/compare/v1.3.1...v1.3.2)
