@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.5.0 (2026-05-13)
+
+Full Changelog: [v1.4.0...v1.5.0](https://github.com/rsky/x-ray-webhook-python/compare/v1.4.0...v1.5.0)
+
+### Features
+
+* **internal/types:** support eagerly validating pydantic iterators ([b68dc4f](https://github.com/rsky/x-ray-webhook-python/commit/b68dc4fbc50a26705e1595c23b60397afa9fea85))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([d7f4221](https://github.com/rsky/x-ray-webhook-python/commit/d7f4221b409012f5dd3d87e328788a734f7375e3))
+
 ## 1.4.0 (2026-05-01)
 
 Full Changelog: [v1.3.2...v1.4.0](https://github.com/rsky/x-ray-webhook-python/compare/v1.3.2...v1.4.0)
